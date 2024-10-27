@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 
 const lastNDates = lastNDays(DAYS_TO_SHOW);
 
-const spacingBetweenDays = "w-10";
+const spacingBetweenDays = "w-8";
 
 export default function Home() {
   const { savedHabits } = useSavedHabits();
@@ -30,7 +30,9 @@ export default function Home() {
       </div>
 
       <div className="flex justify-between mb-8 items-center">
-        <h3 className="text-3xl font-semibold tracking-tight">Routine</h3>
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          Routine
+        </h3>
         <div className="flex ">
           {lastNDates.map((day) => (
             <div
@@ -82,7 +84,8 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
         </div>
 
         <div>
-          <div className="font-bold">{habit.name}</div>
+          <div className="text-sm md:text-base font-bold">{habit.name}</div>
+
           {showStreaks ? (
             <div className="text-orange-500 text-xs">
               {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥

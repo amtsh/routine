@@ -59,12 +59,17 @@ export default function AddHabit() {
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-6">
           <Link href="/">
-            <Button type="button" variant="ghost">
+            <Button type="button" variant="link" className="px-0">
               Cancel
             </Button>
           </Link>
           <Link href="/">
-            <Button type="button" variant="ghost" onClick={handleSubmit}>
+            <Button
+              type="button"
+              variant="link"
+              className="px-0"
+              onClick={handleSubmit}
+            >
               Save
             </Button>
           </Link>
@@ -96,37 +101,36 @@ export default function AddHabit() {
               />
             ))}
           </div>
+        </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="habit-name"
-              className="block text-xs text-gray-400 mb-4"
-            >
-              Habit name
-            </label>
+        <div className="my-8">
+          <label
+            htmlFor="habit-name"
+            className="block text-xs text-gray-400 mb-4"
+          >
+            Habit name
+          </label>
 
-            <Input
-              type="text"
-              id="habit-name"
-              placeholder="Meditate"
-              value={habitName}
-              className="py-6"
-              onChange={(e) => setHabitName(e.target.value)}
-              required
-            />
-          </div>
+          <Input
+            type="text"
+            id="habit-name"
+            placeholder="Meditate"
+            value={habitName}
+            className="py-6 text-base"
+            onChange={(e) => setHabitName(e.target.value)}
+            required
+          />
         </div>
 
         {/* Add cancel and save buttons */}
         <div className="my-8">
           <Button
-            size={"lg"}
-            variant={"secondary"}
+            variant={"outline"}
             type="submit"
             // onClick={(e) => handleSubmit(e)}
-            className="w-full bg-zinc-900"
+            className="w-full py-6"
           >
-            Save
+            Save Habit
           </Button>
         </div>
       </form>
