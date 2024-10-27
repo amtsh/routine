@@ -1,9 +1,12 @@
 import AddHabit from "./AddHabit";
+import { SavedHabitsProvider } from "@/lib/context/SavedHabitsContext";
 
 export default function AddHabitPage() {
   return (
     <main>
-      <AddHabit />
+      <SavedHabitsProvider>
+        <AddHabit />
+      </SavedHabitsProvider>
     </main>
   );
 }

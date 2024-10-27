@@ -1,8 +1,12 @@
+"use client";
+
 import { EllipsisIcon, PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Habit } from "@/lib/types";
+import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 
-const habits = [
+const suggestedHabits: Habit[] = [
   { name: "Vitamin D", icon: "💊", streak: 1, color: "yellow" },
   { name: "Honey water", icon: "🥃", streak: 2, color: "cyan" },
   { name: "Face Moisturiser", icon: "🧴", streak: 1, color: "green" },
@@ -13,15 +17,17 @@ const habits = [
 const weekDays = ["We", "Th", "Fr", "Sa", "Su"];
 
 export default function Home() {
+  const { savedHabits } = useSavedHabits();
+
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <div className="flex justify-between items-center mb-8">
         <EllipsisIcon className="w-6 h-6" />
       </div>
 
-      <div className="flex justify-between mb-8">
+      <div className="flex justify-between mb-8 items-center">
         <h3 className="text-2xl font-semibold tracking-tight">Routine</h3>
-        <div className="flex gap-2">
+        <div className="flex ">
           {weekDays.map((day, index) => (
             <div
               key={day}
@@ -39,7 +45,7 @@ export default function Home() {
       </div>
 
       <div className="space-y-8">
-        {habits.map((habit, index) => (
+        {savedHabits.map((habit, index) => (
           <HabitRow key={index} habit={habit} weekDays={weekDays} />
         ))}
 
@@ -48,13 +54,6 @@ export default function Home() {
     </div>
   );
 }
-
-type Habit = {
-  name: string;
-  icon: string;
-  streak: number;
-  color: string;
-};
 
 function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
   return (

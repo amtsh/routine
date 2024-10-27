@@ -10,6 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
+import { useRouter } from "next/navigation";
 
 const colors = [
   "bg-red-500",
@@ -30,6 +32,20 @@ export default function AddHabit() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [habitName, setHabitName] = useState("");
   const [emoji, setEmoji] = useState("🧘");
+  const router = useRouter();
+
+  const { saveHabit } = useSavedHabits();
+
+  const handleSave = () => {
+    saveHabit({
+      name: habitName,
+      icon: emoji,
+      color: selectedColor,
+      streak: 0,
+    });
+
+    router.push("/");
+  };
 
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
@@ -37,7 +53,7 @@ export default function AddHabit() {
         <Link href="/">
           <Button variant="link">Cancel</Button>
         </Link>
-        <button className="text-lg text-gray-400">Save</button>
+        <Button onClick={handleSave}>Save</Button>
       </div>
 
       <div className="bg-zinc-900 rounded-lg p-6">
