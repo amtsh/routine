@@ -61,19 +61,6 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
 
   return (
     <div className="flex items-center">
-      {/* <div
-        className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
-      >
-        <span className="text-lg">{habit.icon}</span>
-      </div>
-      <div className="flex-grow">
-        <div className="">{habit.name}</div>
-
-        <div className="text-orange-500 text-xs">
-          🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
-        </div>
-      </div> */}
-
       <div className="flex items-center">
         <div
           className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
@@ -82,7 +69,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
         </div>
 
         <div>
-          <div className="">{habit.name}</div>
+          <div className="font-bold">{habit.name}</div>
 
           <div className="text-orange-500 text-xs">
             🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
