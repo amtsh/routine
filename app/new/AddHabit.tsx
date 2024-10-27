@@ -32,6 +32,7 @@ export default function AddHabit() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [habitName, setHabitName] = useState("");
   const [emoji, setEmoji] = useState("🧘");
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const router = useRouter();
 
   const { saveHabit } = useSavedHabits();
@@ -77,7 +78,7 @@ export default function AddHabit() {
 
         <div className="bg-zinc-900 rounded-lg p-6">
           <div className="flex justify-center mb-8">
-            <Popover>
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger>
                 <div
                   className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
@@ -86,7 +87,12 @@ export default function AddHabit() {
                 </div>
               </PopoverTrigger>
               <PopoverContent className="w-full">
-                <SelectEmoji setEmoji={setEmoji} />
+                <SelectEmoji
+                  onChangeEmoji={(emoji) => {
+                    setEmoji(emoji);
+                    setPopoverOpen(false);
+                  }}
+                />
               </PopoverContent>
             </Popover>
           </div>

@@ -2,16 +2,17 @@ import Picker from "@emoji-mart/react";
 import data from "../public/emojidata.json";
 
 export default function SelectEmoji({
-  setEmoji,
+  onChangeEmoji,
 }: {
-  setEmoji: (emoji: string) => void;
+  onChangeEmoji: (emoji: string) => void;
 }) {
   return (
     <Picker
       data={data}
-      onEmojiSelect={(emoji: { native: string }) => setEmoji(emoji.native)}
+      onEmojiSelect={(emoji: { native: string }) => onChangeEmoji(emoji.native)}
       onAddCustomEmoji={() => {}}
       autoFocus={false}
+      navPosition="bottom"
     />
   );
 }
