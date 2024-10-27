@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { CrossIcon, EllipsisIcon, PlusIcon, XIcon } from "lucide-react";
+import { EllipsisIcon, XIcon } from "lucide-react";
 
 const colors = [
   "bg-zinc-400",
