@@ -1,21 +1,12 @@
 "use client";
 
 import { EllipsisIcon, PlusIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, DAYS_TO_SHOW, getLastNStatus, lastNWeekDays } from "@/lib/utils";
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 
-// @typescript-eslint/no-unused-vars
-const suggestedHabits: Habit[] = [
-  { name: "Vitamin D", icon: "💊", streak: 1, color: "yellow" },
-  { name: "Honey water", icon: "🥃", streak: 2, color: "cyan" },
-  { name: "Face Moisturiser", icon: "🧴", streak: 1, color: "green" },
-  { name: "Wear Glasses", icon: "😎", streak: 1, color: "yellow" },
-  { name: "Shower", icon: "🚿", streak: 1, color: "yellow" },
-];
-
-const weekDays = ["We", "Th", "Fr", "Sa", "Su"];
+const weekDays = lastNWeekDays(DAYS_TO_SHOW);
 
 export default function Home() {
   const { savedHabits } = useSavedHabits();
@@ -34,7 +25,7 @@ export default function Home() {
               key={day}
               className={cn(
                 "w-8 text-center",
-                index === weekDays.length - 1
+                index === DAYS_TO_SHOW - 1
                   ? "bg-zinc-800 rounded"
                   : "text-zinc-600"
               )}
@@ -47,7 +38,13 @@ export default function Home() {
 
       <div className="space-y-8">
         {savedHabits.map((habit, index) => (
-          <HabitRow key={index} habit={habit} weekDays={weekDays} />
+          <HabitRow
+            key={index}
+            habit={habit}
+            status={getLastNStatus(
+              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+            )}
+          />
         ))}
 
         <NewHabitButton />
@@ -56,7 +53,9 @@ export default function Home() {
   );
 }
 
-function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
+function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
+  const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
+
   return (
     <div className="flex items-center">
       <div
@@ -71,9 +70,17 @@ function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
           🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
         </div>
       </div>
-      {weekDays.map((_, dayIndex) => (
-        <div key={dayIndex} className="w-8 flex justify-center">
-          <div className={cn("w-3 h-3 rounded-full", "bg-zinc-800")} />
+      {status.map((isCompleted, index) => (
+        <div key={index} className="w-8 flex justify-center">
+          {isCompleted ? (
+            <button onClick={() => undoCompletedEntry(habit, index)}>
+              <CompletedStatus color={habit.color} />
+            </button>
+          ) : (
+            <button onClick={() => addCompletedEntry(habit)}>
+              <IncompleteStatus color={habit.color} />
+            </button>
+          )}
         </div>
       ))}
     </div>
@@ -97,4 +104,12 @@ function NewHabitButton() {
       </div>
     </Link>
   );
+}
+
+function CompletedStatus({ color }: { color: string }) {
+  return <div className={cn("w-5 h-5 rounded opacity-80", color)} />;
+}
+
+function IncompleteStatus({ color }: { color: string }) {
+  return <div className={cn("w-3 h-3 rounded-full opacity-40", color)} />;
 }

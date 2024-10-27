@@ -7,6 +7,8 @@ interface SavedHabitsContextType {
   savedHabits: Habit[];
   saveHabit: (habit: Habit) => void;
   removeHabit: (name: Habit) => void;
+  addCompletedEntry: (habit: Habit) => void;
+  undoCompletedEntry: (habit: Habit, date: number) => void;
 }
 
 const SavedHabitsContext = createContext<SavedHabitsContextType | undefined>(
@@ -28,10 +30,17 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     setSavedHabits(savedHabits);
   }, []);
 
+  // when savedHabits changes, save to local storage
+  useEffect(() => {
+    console.log("saving to local storage");
+    if (savedHabits.length === 0) return;
+
+    localStorage.setItem(localStorageKey, JSON.stringify(savedHabits));
+  }, [savedHabits]);
+
   const saveHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
       const updatedHabits = [...prev, habit];
-      localStorage.setItem(localStorageKey, JSON.stringify(updatedHabits));
       return updatedHabits;
     });
   };
@@ -39,14 +48,41 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
       const updatedHabits = prev.filter((h) => h.name !== habit.name);
-      localStorage.setItem(localStorageKey, JSON.stringify(updatedHabits));
+      return updatedHabits;
+    });
+  };
+
+  const addCompletedEntry = (habit: Habit) => {
+    setSavedHabits((prev) => {
+      const updatedHabits = prev.map((h) =>
+        h.name === habit.name
+          ? { ...h, completedOn: [...h.completedOn, Date.now()] }
+          : h
+      );
+      return updatedHabits;
+    });
+  };
+
+  const undoCompletedEntry = (habit: Habit, date: number) => {
+    setSavedHabits((prev) => {
+      const updatedHabits = prev.map((h) =>
+        h.name === habit.name
+          ? { ...h, completedOn: h.completedOn.filter((d) => d !== date) }
+          : h
+      );
       return updatedHabits;
     });
   };
 
   return (
     <SavedHabitsContext.Provider
-      value={{ savedHabits, saveHabit, removeHabit }}
+      value={{
+        savedHabits,
+        saveHabit,
+        removeHabit,
+        addCompletedEntry,
+        undoCompletedEntry,
+      }}
     >
       {children}
     </SavedHabitsContext.Provider>

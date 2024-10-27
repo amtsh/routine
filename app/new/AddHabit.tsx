@@ -42,6 +42,8 @@ export default function AddHabit() {
       icon: emoji,
       color: selectedColor,
       streak: 0,
+      completedOn: [],
+      createdAt: Date.now(),
     });
 
     router.push("/");
