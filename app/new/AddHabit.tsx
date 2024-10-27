@@ -13,19 +13,27 @@ import Link from "next/link";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import { CrossIcon, EllipsisIcon, PlusIcon, XIcon } from "lucide-react";
+
 const colors = [
-  "bg-red-400",
+  "bg-zinc-400",
+  "bg-stone-400",
   "bg-orange-400",
   "bg-amber-400",
   "bg-yellow-400",
   "bg-lime-400",
   "bg-green-400",
+  "bg-emerald-400",
   "bg-teal-400",
+  "bg-cyan-400",
+  "bg-sky-400",
   "bg-blue-400",
   "bg-indigo-400",
   "bg-violet-400",
   "bg-purple-400",
+  "bg-fuchsia-400",
   "bg-pink-400",
+  "bg-rose-400",
 ];
 
 export default function AddHabit() {
@@ -58,21 +66,10 @@ export default function AddHabit() {
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-8">
+          <EllipsisIcon className="w-6 h-6 text-zinc-400" />
           <Link href="/">
-            <Button type="button" variant="link" className="px-0">
-              Cancel
-            </Button>
-          </Link>
-          <Link href="/">
-            <Button
-              type="button"
-              variant="link"
-              className="px-0"
-              onClick={handleSubmit}
-            >
-              Save
-            </Button>
+            <XIcon className="w-6 h-6 text-zinc-400" />
           </Link>
         </div>
 

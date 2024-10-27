@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 
 const lastNDates = lastNDays(DAYS_TO_SHOW);
 
-const spacingBetweenDays = "w-8";
+const spacingBetweenDays = "w-9";
 
 export default function Home() {
   const { savedHabits } = useSavedHabits();
@@ -29,15 +29,15 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="flex justify-between mb-8 items-center">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+      <div className="flex justify-between mb-10 items-center">
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-200">
           Routine
         </h3>
         <div className="flex ">
           {lastNDates.map((day) => (
             <div
               key={day}
-              className={`${spacingBetweenDays} text-sm text-center text-zinc-600`}
+              className={`${spacingBetweenDays} text-sm text-center text-zinc-400`}
             >
               {getDayFromDate(day)}
             </div>
@@ -80,7 +80,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
         <div
           className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
         >
-          <span className="text-lg">{habit.icon}</span>
+          <span className="text-xl">{habit.icon}</span>
         </div>
 
         <div>
