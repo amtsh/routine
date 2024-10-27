@@ -23,11 +23,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <div className="flex justify-between items-center mb-8">
-        <EllipsisIcon className="w-6 h-6" />
+        <EllipsisIcon className="w-6 h-6 text-zinc-400" />
+        <Link href="/new">
+          <PlusIcon className="w-6 h-6 text-zinc-400" />
+        </Link>
       </div>
 
       <div className="flex justify-between mb-8 items-center">
-        <h3 className="text-2xl font-semibold tracking-tight">Routine</h3>
+        <h3 className="text-3xl font-semibold tracking-tight">Routine</h3>
         <div className="flex ">
           {lastNDates.map((day) => (
             <div

@@ -63,6 +63,11 @@ export default function AddHabit() {
               Cancel
             </Button>
           </Link>
+          <Link href="/">
+            <Button type="button" variant="ghost" onClick={handleSubmit}>
+              Save
+            </Button>
+          </Link>
         </div>
 
         <div className="bg-zinc-900 rounded-lg p-6">
