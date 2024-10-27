@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
+import { useEffect, useState } from "react";
 
 const lastNDates = lastNDays(DAYS_TO_SHOW);
 
@@ -58,6 +59,15 @@ export default function Home() {
 
 function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
+  const [showStreaks, setShowStreaks] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowStreaks((prevShowStreaks) => !prevShowStreaks);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex items-center">
@@ -70,10 +80,13 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
 
         <div>
           <div className="font-bold">{habit.name}</div>
-
-          <div className="text-orange-500 text-xs">
-            🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
-          </div>
+          {showStreaks ? (
+            <div className="text-orange-500 text-xs">
+              {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
+            </div>
+          ) : (
+            <div className="text-zinc-400 text-xs">Every day</div>
+          )}
         </div>
       </div>
       <div className="flex-grow" />
@@ -118,9 +131,9 @@ function NewHabitButton() {
 }
 
 function CompletedStatus({ color }: { color: string }) {
-  return <div className={cn("w-5 h-5 rounded opacity-80", color)} />;
+  return <div className={cn("w-5 h-5 rounded", color)} />;
 }
 
 function IncompleteStatus({ color }: { color: string }) {
-  return <div className={cn("w-3 h-3 rounded-full opacity-40", color)} />;
+  return <div className={cn("w-5 h-5 rounded opacity-20", color)} />;
 }

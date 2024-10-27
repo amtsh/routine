@@ -84,6 +84,7 @@ export default function AddHabit() {
           <div className="grid grid-cols-6 gap-4 mb-12 md:grid-cols-12">
             {colors.map((color) => (
               <button
+                type="button"
                 key={color}
                 className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-2 focus:ring-white`}
                 onClick={() => setSelectedColor(color)}
