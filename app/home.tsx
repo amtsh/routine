@@ -60,7 +60,7 @@ function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
   return (
     <div className="flex items-center">
       <div
-        className={`w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-3`}
+        className={`w-10 h-10 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
       >
         <span className="text-lg">{habit.icon}</span>
       </div>

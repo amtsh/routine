@@ -14,18 +14,18 @@ import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
 
 const colors = [
-  "bg-red-500",
-  "bg-orange-500",
-  "bg-amber-500",
-  "bg-yellow-500",
-  "bg-lime-500",
-  "bg-green-500",
-  "bg-teal-500",
-  "bg-blue-500",
-  "bg-indigo-500",
-  "bg-violet-500",
-  "bg-purple-500",
-  "bg-pink-500",
+  "bg-red-400",
+  "bg-orange-400",
+  "bg-amber-400",
+  "bg-yellow-400",
+  "bg-lime-400",
+  "bg-green-400",
+  "bg-teal-400",
+  "bg-blue-400",
+  "bg-indigo-400",
+  "bg-violet-400",
+  "bg-purple-400",
+  "bg-pink-400",
 ];
 
 export default function AddHabit() {
@@ -51,9 +51,11 @@ export default function AddHabit() {
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <div className="flex justify-between items-center mb-6">
         <Link href="/">
-          <Button variant="link">Cancel</Button>
+          <Button variant="ghost">Cancel</Button>
         </Link>
-        <Button onClick={handleSave}>Save</Button>
+        <Button variant={"outline"} onClick={handleSave}>
+          Save
+        </Button>
       </div>
 
       <div className="bg-zinc-900 rounded-lg p-6">
@@ -61,7 +63,7 @@ export default function AddHabit() {
           <Popover>
             <PopoverTrigger>
               <div
-                className={`w-24 h-24 ${selectedColor} rounded-full flex items-center justify-center`}
+                className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
               >
                 <span className="text-4xl">{emoji}</span>
               </div>
