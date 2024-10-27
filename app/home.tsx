@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 
+// @typescript-eslint/no-unused-vars
 const suggestedHabits: Habit[] = [
   { name: "Vitamin D", icon: "💊", streak: 1, color: "yellow" },
   { name: "Honey water", icon: "🥃", streak: 2, color: "cyan" },
