@@ -28,9 +28,14 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     console.log("getting from local storage");
-    const savedHabits = JSON.parse(
-      localStorage.getItem(localStorageKey) || "[]"
-    );
+    let savedHabits: Habit[] = [];
+
+    try {
+      savedHabits = JSON.parse(localStorage.getItem(localStorageKey) || "[]");
+    } catch (error) {
+      console.error("Failed to parse saved habits from localStorage:", error);
+      writeToLocalStorage([]);
+    }
 
     setSavedHabits(savedHabits);
   }, []);
