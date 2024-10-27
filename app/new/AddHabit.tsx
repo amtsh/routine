@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
-
+import { v4 as uuidv4 } from "uuid";
 const colors = [
   "bg-red-400",
   "bg-orange-400",
@@ -38,6 +38,7 @@ export default function AddHabit() {
 
   const handleSave = () => {
     saveHabit({
+      id: uuidv4(),
       name: habitName,
       icon: emoji,
       color: selectedColor,

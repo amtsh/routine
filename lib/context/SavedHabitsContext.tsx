@@ -2,13 +2,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { Habit } from "@/lib/types";
+import { getDateFromEpochTime, getEpochTimeFromDate } from "../utils";
 
 interface SavedHabitsContextType {
   savedHabits: Habit[];
   saveHabit: (habit: Habit) => void;
   removeHabit: (name: Habit) => void;
-  addCompletedEntry: (habit: Habit) => void;
-  undoCompletedEntry: (habit: Habit, date: number) => void;
+  addCompletedEntry: (habit: Habit, date: string) => void;
+  undoCompletedEntry: (habit: Habit, date: string) => void;
 }
 
 const SavedHabitsContext = createContext<SavedHabitsContextType | undefined>(
@@ -21,26 +22,23 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
   const localStorageKey = "routinehabits.vercel.app:savedHabits";
   const [savedHabits, setSavedHabits] = useState<Habit[]>([]);
 
+  const writeToLocalStorage = (habits: Habit[]) => {
+    localStorage.setItem(localStorageKey, JSON.stringify(habits));
+  };
+
   useEffect(() => {
     console.log("getting from local storage");
     const savedHabits = JSON.parse(
       localStorage.getItem(localStorageKey) || "[]"
     );
-    console.log(savedHabits);
+
     setSavedHabits(savedHabits);
   }, []);
-
-  // when savedHabits changes, save to local storage
-  useEffect(() => {
-    console.log("saving to local storage");
-    if (savedHabits.length === 0) return;
-
-    localStorage.setItem(localStorageKey, JSON.stringify(savedHabits));
-  }, [savedHabits]);
 
   const saveHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
       const updatedHabits = [...prev, habit];
+      writeToLocalStorage(updatedHabits);
       return updatedHabits;
     });
   };
@@ -48,28 +46,38 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
       const updatedHabits = prev.filter((h) => h.name !== habit.name);
+      writeToLocalStorage(updatedHabits);
       return updatedHabits;
     });
   };
 
-  const addCompletedEntry = (habit: Habit) => {
+  const addCompletedEntry = (habit: Habit, date: string) => {
+    const epochTime = getEpochTimeFromDate(date);
+
     setSavedHabits((prev) => {
       const updatedHabits = prev.map((h) =>
-        h.name === habit.name
-          ? { ...h, completedOn: [...h.completedOn, Date.now()] }
+        h.id === habit.id
+          ? { ...h, completedOn: [...h.completedOn, epochTime] }
           : h
       );
+      writeToLocalStorage(updatedHabits);
       return updatedHabits;
     });
   };
 
-  const undoCompletedEntry = (habit: Habit, date: number) => {
+  const undoCompletedEntry = (habit: Habit, date: string) => {
     setSavedHabits((prev) => {
       const updatedHabits = prev.map((h) =>
-        h.name === habit.name
-          ? { ...h, completedOn: h.completedOn.filter((d) => d !== date) }
+        h.id === habit.id
+          ? {
+              ...h,
+              completedOn: h.completedOn.filter(
+                (d) => getDateFromEpochTime(d) !== date
+              ),
+            }
           : h
       );
+      writeToLocalStorage(updatedHabits);
       return updatedHabits;
     });
   };

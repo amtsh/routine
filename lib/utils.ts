@@ -16,22 +16,25 @@ export function lastNDays(n: number) {
   }).sort();
 }
 
-// [We, Th, Fr, Sa, Su]
-export function lastNWeekDays(n: number) {
-  return lastNDays(n).map((date) => {
-    return new Date(date).toLocaleDateString("en-US", { weekday: "short" });
-  });
+export function getDayFromDate(date: string) {
+  // 2024-10-27 -> Wed
+  return new Date(date).toLocaleDateString("en-US", { weekday: "short" });
 }
 
 // [true, false, false, true, false]
 export function getLastNStatus(completedOn: number[]) {
   const convertedCompletedOn = completedOn.map(
-    (d) => new Date(d).toISOString().split("T")[0]
+    (d) => new Date(d * 1000).toISOString().split("T")[0]
   );
-
-  console.log("convertedCompletedOn", convertedCompletedOn);
 
   return lastNDays(DAYS_TO_SHOW).map((day) =>
     convertedCompletedOn.includes(day)
   );
+}
+export function getEpochTimeFromDate(date: string) {
+  return new Date(date).getTime() / 1000;
+}
+
+export function getDateFromEpochTime(epochTime: number) {
+  return new Date(epochTime * 1000).toISOString().split("T")[0];
 }

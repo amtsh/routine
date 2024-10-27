@@ -1,12 +1,20 @@
 "use client";
 
 import { EllipsisIcon, PlusIcon } from "lucide-react";
-import { cn, DAYS_TO_SHOW, getLastNStatus, lastNWeekDays } from "@/lib/utils";
+import {
+  cn,
+  DAYS_TO_SHOW,
+  getDayFromDate,
+  getLastNStatus,
+  lastNDays,
+} from "@/lib/utils";
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 
-const weekDays = lastNWeekDays(DAYS_TO_SHOW);
+const lastNDates = lastNDays(DAYS_TO_SHOW);
+
+const spacingBetweenDays = "w-10";
 
 export default function Home() {
   const { savedHabits } = useSavedHabits();
@@ -20,17 +28,12 @@ export default function Home() {
       <div className="flex justify-between mb-8 items-center">
         <h3 className="text-2xl font-semibold tracking-tight">Routine</h3>
         <div className="flex ">
-          {weekDays.map((day, index) => (
+          {lastNDates.map((day) => (
             <div
               key={day}
-              className={cn(
-                "w-8 text-center",
-                index === DAYS_TO_SHOW - 1
-                  ? "bg-zinc-800 rounded"
-                  : "text-zinc-600"
-              )}
+              className={`${spacingBetweenDays} text-sm text-center text-zinc-600`}
             >
-              {day}
+              {getDayFromDate(day)}
             </div>
           ))}
         </div>
@@ -58,26 +61,47 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
 
   return (
     <div className="flex items-center">
-      <div
-        className={`w-10 h-10 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
+      {/* <div
+        className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
       >
         <span className="text-lg">{habit.icon}</span>
       </div>
       <div className="flex-grow">
-        <div>{habit.name}</div>
+        <div className="">{habit.name}</div>
 
         <div className="text-orange-500 text-xs">
           🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
         </div>
+      </div> */}
+
+      <div className="flex items-center">
+        <div
+          className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
+        >
+          <span className="text-lg">{habit.icon}</span>
+        </div>
+
+        <div>
+          <div className="">{habit.name}</div>
+
+          <div className="text-orange-500 text-xs">
+            🔥&nbsp;&nbsp;{habit.streak} day{habit.streak > 1 ? "s" : ""}
+          </div>
+        </div>
       </div>
-      {status.map((isCompleted, index) => (
-        <div key={index} className="w-8 flex justify-center">
-          {isCompleted ? (
-            <button onClick={() => undoCompletedEntry(habit, index)}>
+      <div className="flex-grow" />
+
+      {lastNDates.map((date, index) => (
+        <div
+          key={index}
+          className={`${spacingBetweenDays} flex justify-center`}
+        >
+          {status[index] ? (
+            <button onClick={() => undoCompletedEntry(habit, date)}>
               <CompletedStatus color={habit.color} />
             </button>
           ) : (
-            <button onClick={() => addCompletedEntry(habit)}>
+            <button onClick={() => addCompletedEntry(habit, date)}>
               <IncompleteStatus color={habit.color} />
             </button>
           )}
