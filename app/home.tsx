@@ -12,12 +12,6 @@ const habits = [
 
 const weekDays = ["We", "Th", "Fr", "Sa", "Su"];
 
-const getCompletionStatus = (habitIndex: number, dayIndex: number) => {
-  // This is a mock function. In a real app, you'd fetch this data from a backend or local storage.
-  console.log(habitIndex, dayIndex);
-  return Math.random() > 0.5;
-};
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
@@ -79,14 +73,7 @@ function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
       </div>
       {weekDays.map((_, dayIndex) => (
         <div key={dayIndex} className="w-8 flex justify-center">
-          <div
-            className={cn(
-              "w-3 h-3 rounded-full",
-              getCompletionStatus(0, dayIndex)
-                ? `bg-${habit.color}-500`
-                : "bg-zinc-800"
-            )}
-          />
+          <div className={cn("w-3 h-3 rounded-full", "bg-zinc-800")} />
         </div>
       ))}
     </div>
@@ -95,7 +82,7 @@ function HabitRow({ habit, weekDays }: { habit: Habit; weekDays: string[] }) {
 
 function NewHabitButton() {
   return (
-    <Link href="/new-habit" className="block">
+    <Link href="/new" className="block">
       <div className="flex items-center">
         <div
           className={`w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center mr-3`}
