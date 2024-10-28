@@ -11,8 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
-import { TrashIcon } from "lucide-react";
+import { TrashIcon, XIcon } from "lucide-react";
 import { Habit } from "@/lib/types";
+import Link from "next/link";
 
 const colors = [
   "bg-zinc-400",
@@ -86,74 +87,96 @@ export default function EditHabit({ habitId }: { habitId: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="bg-zinc-900 rounded-lg p-6">
-        <div className="flex justify-center mb-8">
-          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-            <PopoverTrigger>
-              <div
-                className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
-              >
-                <span className="text-4xl">{emoji}</span>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent className="w-full">
-              <SelectEmoji
-                onChangeEmoji={(emoji) => {
-                  setEmoji(emoji);
-                  setPopoverOpen(false);
-                }}
+    <div className="min-h-screen bg-black text-white p-4 font-sans">
+      <form onSubmit={handleSubmit}>
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <Link href="/">
+              <XIcon className="w-6 h-6 text-zinc-400" />
+            </Link>
+          </div>
+          <div>
+            <Button type="submit" variant={"link"} className="text-lg px-0">
+              Save
+            </Button>
+          </div>
+        </div>
+        <div className="flex justify-between mb-10 items-center">
+          <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-200">
+            Update Habit
+          </h3>
+        </div>
+
+        <div className="bg-zinc-900 rounded-lg p-6">
+          <div className="flex justify-center mb-8">
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+              <PopoverTrigger>
+                <div
+                  className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
+                >
+                  <span className="text-4xl">{emoji}</span>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-full">
+                <SelectEmoji
+                  onChangeEmoji={(emoji) => {
+                    setEmoji(emoji);
+                    setPopoverOpen(false);
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className="grid grid-cols-6 gap-4 md:grid-cols-12 place-items-center mb-2">
+            {colors.map((color) => (
+              <button
+                type="button"
+                key={color}
+                className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
+                onClick={() => setSelectedColor(color)}
               />
-            </PopoverContent>
-          </Popover>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-6 gap-4 md:grid-cols-12 place-items-center mb-2">
-          {colors.map((color) => (
-            <button
-              type="button"
-              key={color}
-              className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
-              onClick={() => setSelectedColor(color)}
-            />
-          ))}
+        <div className="my-8">
+          <label htmlFor="habit-name" className="block text-xs mb-2">
+            Habit name
+          </label>
+
+          <Input
+            type="text"
+            id="habit-name"
+            placeholder="Meditate"
+            value={habitName}
+            className="py-6 text-base font-bold"
+            onChange={(e) => setHabitName(e.target.value)}
+            required
+          />
         </div>
-      </div>
 
-      <div className="my-8">
-        <label htmlFor="habit-name" className="block text-xs mb-2">
-          Habit name
-        </label>
-
-        <Input
-          type="text"
-          id="habit-name"
-          placeholder="Meditate"
-          value={habitName}
-          className="py-6 text-base font-bold"
-          onChange={(e) => setHabitName(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="my-8">
-        <Button variant={"outline"} type="submit" className="w-full py-6">
-          Update Habit
-        </Button>
-        <Button
-          variant={"ghost"}
-          type="button"
-          className="w-full py-6 text-red-400 hover:text-red-400"
-          onClick={() => {
-            if (window.confirm("Are you sure you want to delete this habit?")) {
-              handleDelete();
-            }
-          }}
-        >
-          <TrashIcon className="w-4 h-4" />
-          Delete Habit
-        </Button>
-      </div>
-    </form>
+        <div className="my-8">
+          {/* <Button variant={"outline"} type="submit" className="w-full py-6">
+            Update Habit
+          </Button> */}
+          <Button
+            variant={"ghost"}
+            type="button"
+            className="w-full py-6 text-red-400 hover:text-red-400"
+            onClick={() => {
+              if (
+                window.confirm("Are you sure you want to delete this habit?")
+              ) {
+                handleDelete();
+              }
+            }}
+          >
+            <TrashIcon className="w-4 h-4" />
+            Delete Habit
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }
