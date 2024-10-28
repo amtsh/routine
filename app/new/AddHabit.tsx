@@ -9,11 +9,9 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { EllipsisIcon, XIcon } from "lucide-react";
 
 const colors = [
   "bg-zinc-400",
@@ -64,70 +62,61 @@ export default function AddHabit() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-4 font-sans">
-      <form onSubmit={handleSubmit}>
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/">
-            <XIcon className="w-6 h-6 text-zinc-400" />
-          </Link>
-          <EllipsisIcon className="w-6 h-6 text-zinc-400" />
-        </div>
-
-        <div className="bg-zinc-900 rounded-lg p-6">
-          <div className="flex justify-center mb-8">
-            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-              <PopoverTrigger>
-                <div
-                  className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
-                >
-                  <span className="text-4xl">{emoji}</span>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent className="w-full">
-                <SelectEmoji
-                  onChangeEmoji={(emoji) => {
-                    setEmoji(emoji);
-                    setPopoverOpen(false);
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-
-          <div className="grid grid-cols-6 gap-4 mb-12 md:grid-cols-12">
-            {colors.map((color) => (
-              <button
-                type="button"
-                key={color}
-                className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-2 focus:ring-white`}
-                onClick={() => setSelectedColor(color)}
+    <form onSubmit={handleSubmit}>
+      <div className="bg-zinc-900 rounded-lg p-6">
+        <div className="flex justify-center mb-8">
+          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+            <PopoverTrigger>
+              <div
+                className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
+              >
+                <span className="text-4xl">{emoji}</span>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-full">
+              <SelectEmoji
+                onChangeEmoji={(emoji) => {
+                  setEmoji(emoji);
+                  setPopoverOpen(false);
+                }}
               />
-            ))}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
-        <div className="my-8">
-          <label htmlFor="habit-name" className="block text-xs mb-2">
-            Habit name
-          </label>
-
-          <Input
-            type="text"
-            id="habit-name"
-            placeholder="Meditate"
-            value={habitName}
-            className="py-6 text-base"
-            onChange={(e) => setHabitName(e.target.value)}
-            required
-          />
+        <div className="grid grid-cols-6 gap-4 mb-12 md:grid-cols-12">
+          {colors.map((color) => (
+            <button
+              type="button"
+              key={color}
+              className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
+              onClick={() => setSelectedColor(color)}
+            />
+          ))}
         </div>
+      </div>
 
-        <div className="my-8">
-          <Button variant={"outline"} type="submit" className="w-full py-6">
-            Save Habit
-          </Button>
-        </div>
-      </form>
-    </div>
+      <div className="my-8">
+        <label htmlFor="habit-name" className="block text-xs mb-2">
+          Habit name
+        </label>
+
+        <Input
+          type="text"
+          id="habit-name"
+          placeholder="Meditate"
+          value={habitName}
+          className="py-6 text-base"
+          onChange={(e) => setHabitName(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="my-8">
+        <Button variant={"outline"} type="submit" className="w-full py-6">
+          Save Habit
+        </Button>
+      </div>
+    </form>
   );
 }
