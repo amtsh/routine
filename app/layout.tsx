@@ -37,7 +37,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SavedHabitsProvider>
-            <div className="mx-auto xl:mx-96">{children}</div>
+            <div className="mx-auto sm:mx-16 md:mx-32 lg:mx-48 xl:mx-96">
+              {children}
+            </div>
           </SavedHabitsProvider>
         </ThemeProvider>
       </body>

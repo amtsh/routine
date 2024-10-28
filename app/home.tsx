@@ -75,7 +75,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
           </div>
 
           <div className="flex flex-col">
-            <div className="text-md font-bold">{habit.name}</div>
+            <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
             {showStreaks ? (
               <div className="text-orange-500 text-xs ">
