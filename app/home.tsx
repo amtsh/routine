@@ -32,10 +32,14 @@ export default function Home() {
           Routine
         </h3>
         <div className="flex ">
-          {lastNDates.map((day) => (
+          {lastNDates.map((day, index) => (
             <div
-              key={day}
-              className={`${spacingBetweenDays} text-sm text-center text-zinc-400`}
+              key={index}
+              className={`${spacingBetweenDays} text-sm text-center rounded ${
+                index === lastNDates.length - 1
+                  ? "text-zinc-100 bg-zinc-700"
+                  : "text-zinc-400"
+              }`}
             >
               {getDayFromDate(day)}
             </div>

@@ -12,7 +12,7 @@ export function lastNDays(n: number) {
   return Array.from({ length: n }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - i);
-    return date.toISOString().split("T")[0];
+    return date.toLocaleDateString("en-US").split("/").join("-");
   }).sort();
 }
 
