@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectEmoji from "@/components/SelectEmoji";
 import {
   Popover,
@@ -12,36 +12,59 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from "uuid";
-import { EllipsisIcon, XIcon } from "lucide-react";
+import { EllipsisIcon, TrashIcon, XIcon } from "lucide-react";
 import { getBgColors } from "@/lib/utils";
+import { Habit } from "@/lib/types";
 
 const colors = getBgColors();
 
-export default function AddHabit() {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [habitName, setHabitName] = useState("");
-  const [emoji, setEmoji] = useState("🧘");
-  const [popoverOpen, setPopoverOpen] = useState(false);
+export default function EditHabit({ habitId }: { habitId: string }) {
   const router = useRouter();
+  const [habit, setHabit] = useState<Habit | null>(null);
+  const { getHabitById, updateHabit, removeHabit } = useSavedHabits();
 
-  const { saveHabit } = useSavedHabits();
+  // Initialize state variables only after habit is fetched
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [habitName, setHabitName] = useState<string>("");
+  const [emoji, setEmoji] = useState<string>("");
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchedHabit = getHabitById(habitId);
+
+    if (!fetchedHabit) {
+      router.push("/"); // Redirect if habit not found
+      return;
+    }
+
+    setHabit(fetchedHabit);
+    setSelectedColor(fetchedHabit.color);
+    setHabitName(fetchedHabit.name);
+    setEmoji(fetchedHabit.icon);
+  }, [habitId]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
 
-    saveHabit({
-      id: uuidv4(),
+    if (!habit) {
+      return;
+    }
+
+    updateHabit({
+      ...habit,
       name: habitName,
       icon: emoji,
       color: selectedColor,
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
     });
 
+    router.push("/");
+  };
+
+  const handleDelete = () => {
+    removeHabit(habit!);
     router.push("/");
   };
 
@@ -106,7 +129,16 @@ export default function AddHabit() {
 
         <div className="my-8">
           <Button variant={"outline"} type="submit" className="w-full py-6">
-            Save Habit
+            Update Habit
+          </Button>
+          <Button
+            variant={"ghost"}
+            type="button"
+            className="w-full py-6 text-red-400 hover:text-red-400"
+            onClick={handleDelete}
+          >
+            <TrashIcon className="w-4 h-4 mr-2" />
+            Delete Habit
           </Button>
         </div>
       </form>

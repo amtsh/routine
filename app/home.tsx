@@ -18,7 +18,12 @@ const lastNDates = lastNDays(DAYS_TO_SHOW);
 const spacingBetweenDays = "w-9";
 
 export default function Home() {
-  const { savedHabits } = useSavedHabits();
+  const [habits, setHabits] = useState<Habit[]>([]);
+  const { getAllHabits } = useSavedHabits();
+
+  useEffect(() => {
+    setHabits(getAllHabits());
+  }, [getAllHabits]);
 
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
@@ -46,7 +51,7 @@ export default function Home() {
       </div>
 
       <div className="space-y-8">
-        {savedHabits.map((habit, index) => (
+        {habits.map((habit, index) => (
           <HabitRow
             key={index}
             habit={habit}
@@ -76,25 +81,27 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
 
   return (
     <div className="flex items-center">
-      <div className="flex items-center">
-        <div
-          className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
-        >
-          <span className="text-xl">{habit.icon}</span>
-        </div>
+      <Link href={`/edit/${habit.id}`}>
+        <div className="flex items-center">
+          <div
+            className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
+          >
+            <span className="text-xl">{habit.icon}</span>
+          </div>
 
-        <div>
-          <div className="text-sm md:text-base font-bold">{habit.name}</div>
+          <div>
+            <div className="text-sm md:text-base font-bold">{habit.name}</div>
 
-          {showStreaks ? (
-            <div className="text-orange-500 text-xs">
-              {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
-            </div>
-          ) : (
-            <div className="text-zinc-400 text-xs">Every day</div>
-          )}
+            {showStreaks ? (
+              <div className="text-orange-500 text-xs">
+                {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
+              </div>
+            ) : (
+              <div className="text-zinc-400 text-xs">Every day</div>
+            )}
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="flex-grow" />
 
       {lastNDates.map((date, index) => (

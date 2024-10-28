@@ -6,10 +6,13 @@ import { getDateFromEpochTime, getEpochTimeFromDate } from "../utils";
 
 interface SavedHabitsContextType {
   savedHabits: Habit[];
+  getAllHabits: () => Habit[];
   saveHabit: (habit: Habit) => void;
   removeHabit: (name: Habit) => void;
+  updateHabit: (habit: Habit) => void;
   addCompletedEntry: (habit: Habit, date: string) => void;
   undoCompletedEntry: (habit: Habit, date: string) => void;
+  getHabitById: (habitId: string) => Habit | undefined;
 }
 
 const SavedHabitsContext = createContext<SavedHabitsContextType | undefined>(
@@ -56,6 +59,14 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const updateHabit = (habit: Habit) => {
+    setSavedHabits((prev) => {
+      const updatedHabits = prev.map((h) => (h.id === habit.id ? habit : h));
+      writeToLocalStorage(updatedHabits);
+      return updatedHabits;
+    });
+  };
+
   const addCompletedEntry = (habit: Habit, date: string) => {
     const epochTime = getEpochTimeFromDate(date);
 
@@ -87,14 +98,21 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const getHabitById = (habitId: string) => {
+    return savedHabits.find((habit) => habit.id === habitId);
+  };
+
   return (
     <SavedHabitsContext.Provider
       value={{
         savedHabits,
+        getAllHabits: () => savedHabits,
         saveHabit,
         removeHabit,
+        updateHabit,
         addCompletedEntry,
         undoCompletedEntry,
+        getHabitById,
       }}
     >
       {children}

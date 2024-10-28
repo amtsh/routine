@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SavedHabitsProvider } from "@/lib/context/SavedHabitsContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto xl:mx-96">{children}</div>
+          <SavedHabitsProvider>
+            <div className="mx-auto xl:mx-96">{children}</div>
+          </SavedHabitsProvider>
         </ThemeProvider>
       </body>
     </html>
