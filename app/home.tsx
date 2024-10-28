@@ -1,6 +1,6 @@
 "use client";
 
-import { EllipsisIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -26,14 +26,7 @@ export default function Home() {
   }, [getAllHabits]);
 
   return (
-    <div className="min-h-screen bg-black text-white p-4 font-sans">
-      <div className="flex justify-between items-center mb-8">
-        <Link href="/new">
-          <PlusIcon className="w-6 h-6 text-zinc-400" />
-        </Link>
-        <EllipsisIcon className="w-6 h-6 text-zinc-400" />
-      </div>
-
+    <>
       <div className="flex justify-between mb-10 items-center">
         <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-200">
           Routine
@@ -63,7 +56,7 @@ export default function Home() {
 
         <NewHabitButton />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -84,9 +77,9 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
       <Link href={`/edit/${habit.id}`}>
         <div className="flex items-center">
           <div
-            className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-30 flex items-center justify-center mr-3`}
+            className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
           >
-            <span className="text-xl">{habit.icon}</span>
+            <span className="text-3xl">{habit.icon}</span>
           </div>
 
           <div>
