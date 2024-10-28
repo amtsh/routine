@@ -13,6 +13,7 @@ interface SavedHabitsContextType {
   addCompletedEntry: (habit: Habit, date: string) => void;
   undoCompletedEntry: (habit: Habit, date: string) => void;
   getHabitById: (habitId: string) => Habit | undefined;
+  clearCache: () => void;
 }
 
 const SavedHabitsContext = createContext<SavedHabitsContextType | undefined>(
@@ -102,6 +103,11 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     return savedHabits.find((habit) => habit.id === habitId);
   };
 
+  const clearCache = () => {
+    localStorage.removeItem(localStorageKey);
+    setSavedHabits([]);
+  };
+
   return (
     <SavedHabitsContext.Provider
       value={{
@@ -113,6 +119,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
         addCompletedEntry,
         undoCompletedEntry,
         getHabitById,
+        clearCache,
       }}
     >
       {children}
