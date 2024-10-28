@@ -130,7 +130,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
           id="habit-name"
           placeholder="Meditate"
           value={habitName}
-          className="py-6 text-base"
+          className="py-6 text-base font-bold"
           onChange={(e) => setHabitName(e.target.value)}
           required
         />
@@ -144,7 +144,11 @@ export default function EditHabit({ habitId }: { habitId: string }) {
           variant={"ghost"}
           type="button"
           className="w-full py-6 text-red-400 hover:text-red-400"
-          onClick={handleDelete}
+          onClick={() => {
+            if (window.confirm("Are you sure you want to delete this habit?")) {
+              handleDelete();
+            }
+          }}
         >
           <TrashIcon className="w-4 h-4" />
           Delete Habit

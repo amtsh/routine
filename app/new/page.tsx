@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AddHabit from "./AddHabit";
-import { EllipsisIcon, XIcon } from "lucide-react";
+import { CheckIcon, EllipsisIcon, XIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function AddHabitPage() {
   return (
@@ -10,7 +11,11 @@ export default function AddHabitPage() {
           <Link href="/">
             <XIcon className="w-6 h-6 text-zinc-400" />
           </Link>
-          <EllipsisIcon className="w-6 h-6 text-zinc-400" />
+
+          <Button variant={"ghost"}>
+            <CheckIcon className="w-6 h-6" />
+            Save
+          </Button>
         </div>
 
         <div className="flex justify-between mb-10 items-center">

@@ -106,7 +106,7 @@ export default function AddHabit() {
           id="habit-name"
           placeholder="Meditate"
           value={habitName}
-          className="py-6 text-base"
+          className="py-6 text-base font-bold"
           onChange={(e) => setHabitName(e.target.value)}
           required
         />
