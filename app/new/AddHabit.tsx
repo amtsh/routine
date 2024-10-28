@@ -37,7 +37,7 @@ const colors = [
 ];
 
 export default function AddHabit() {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedColor, setSelectedColor] = useState(colors[2]);
   const [habitName, setHabitName] = useState("");
   const [emoji, setEmoji] = useState("🧘");
   const [popoverOpen, setPopoverOpen] = useState(false);

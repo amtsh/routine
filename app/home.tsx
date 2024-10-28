@@ -67,18 +67,18 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   return (
     <div className="flex items-center">
       <Link href={`/edit/${habit.id}`}>
-        <div className="flex items-center">
+        <div className="flex">
           <div
             className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
           >
             <span className="text-2xl">{habit.icon}</span>
           </div>
 
-          <div>
-            <div className="text-sm md:text-base font-bold">{habit.name}</div>
+          <div className="flex flex-col">
+            <div className="text-md font-bold">{habit.name}</div>
 
             {showStreaks ? (
-              <div className="text-orange-500 text-xs">
+              <div className="text-orange-500 text-xs ">
                 {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
               </div>
             ) : (
