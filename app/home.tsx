@@ -64,14 +64,6 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
   const [showStreaks, setShowStreaks] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowStreaks((prevShowStreaks) => !prevShowStreaks);
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="flex items-center">
       <Link href={`/edit/${habit.id}`}>
@@ -79,7 +71,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
           <div
             className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
           >
-            <span className="text-3xl">{habit.icon}</span>
+            <span className="text-2xl">{habit.icon}</span>
           </div>
 
           <div>

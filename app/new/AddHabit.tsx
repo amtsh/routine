@@ -84,7 +84,7 @@ export default function AddHabit() {
           </Popover>
         </div>
 
-        <div className="grid grid-cols-6 gap-4 mb-12 md:grid-cols-12">
+        <div className="grid grid-cols-6 gap-4 md:grid-cols-12 place-items-center mb-2">
           {colors.map((color) => (
             <button
               type="button"
