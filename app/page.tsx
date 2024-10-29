@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Home from "./home";
+import Home from "./home/home";
 import { PlusIcon, EllipsisIcon } from "lucide-react";
 
 export default function Index() {

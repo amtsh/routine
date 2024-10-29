@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, SparklesIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -12,6 +12,8 @@ import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import HabitSuggestions from "./HabitSuggestions";
 
 const spacingBetweenDays = "w-9";
 
@@ -113,20 +115,30 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
 
 function NewHabitButton() {
   return (
-    <Link href="/new" className="block">
-      <div className="flex items-center">
-        <div
-          className={`w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center mr-3`}
-        >
-          <span className="text-lg text-zinc-400">
+    <div className="flex justify-between items-center">
+      <Link href="/new" className="block">
+        <Button variant="ghost" className="hover:bg-transparent px-0">
+          <span className="text-lg text-zinc-400 flex items-center justify-center w-10 h-10 rounded-full bg-gray-900">
             <PlusIcon className="w-4 h-4" />
           </span>
-        </div>
-        <div className="flex-grow">
+
           <div className="text-sm font-medium text-zinc-400">Add New Habit</div>
-        </div>
+        </Button>
+      </Link>
+
+      <div>
+        <HabitSuggestions>
+          <Button variant="ghost" className="hover:bg-transparent px-0">
+            <span className="text-lg flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-amber-400">
+              <SparklesIcon className="w-4 h-4" />
+            </span>
+            <div className="text-sm font-medium text-zinc-400">
+              Habit Suggestions
+            </div>
+          </Button>
+        </HabitSuggestions>
       </div>
-    </Link>
+    </div>
   );
 }
 
