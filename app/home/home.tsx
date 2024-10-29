@@ -13,7 +13,6 @@ import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import HabitSuggestions from "./HabitSuggestions";
 
 const spacingBetweenDays = "w-8";
 
@@ -58,7 +57,7 @@ export default function Home() {
           />
         ))}
 
-        <NewHabitButton />
+        <NewHabitRow />
       </div>
     </>
   );
@@ -113,32 +112,42 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   );
 }
 
-function NewHabitButton() {
+function NewHabitRow() {
   return (
     <div className="flex justify-between items-center">
-      <Link href="/new" className="block">
-        <Button variant="ghost" className="hover:bg-transparent px-0">
-          <span className="text-lg text-zinc-400 flex items-center justify-center w-10 h-10 rounded-full bg-gray-900">
-            <PlusIcon className="w-4 h-4" />
-          </span>
+      <NewHabitButton />
 
-          <div className="text-sm font-medium text-zinc-400">Add New Habit</div>
-        </Button>
-      </Link>
-
-      <div>
-        <HabitSuggestions>
-          <Button variant="ghost" className="hover:bg-transparent px-0">
-            <span className="text-lg flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-amber-400">
-              <SparklesIcon className="w-4 h-4" />
-            </span>
-            <div className="text-sm font-medium text-zinc-400">
-              Habit Suggestions
-            </div>
-          </Button>
-        </HabitSuggestions>
-      </div>
+      <NewHabitSuggestionsButton />
     </div>
+  );
+}
+
+export function NewHabitButton() {
+  return (
+    <Link href="/new" className="block">
+      <Button variant="ghost" className="hover:bg-transparent px-0">
+        <span className="text-lg text-zinc-400 flex items-center justify-center w-10 h-10 rounded-full bg-gray-900">
+          <PlusIcon className="w-4 h-4" />
+        </span>
+
+        <div className="text-sm font-medium text-zinc-400">New Habit</div>
+      </Button>
+    </Link>
+  );
+}
+
+export function NewHabitSuggestionsButton() {
+  return (
+    <Link href="/suggestions" className="block">
+      <Button variant="ghost" className="hover:bg-transparent px-0">
+        <span className="text-lg flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-amber-400">
+          <SparklesIcon className="w-4 h-4" />
+        </span>
+        <div className="text-sm font-medium text-zinc-400">
+          Habit Suggestions
+        </div>
+      </Button>
+    </Link>
   );
 }
 

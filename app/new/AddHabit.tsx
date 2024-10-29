@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { XIcon } from "lucide-react";
 import Link from "next/link";
+import { NewHabitSuggestionsButton } from "../home/home";
 
 const colors = [
   "bg-zinc-400",
@@ -134,11 +135,9 @@ export default function AddHabit() {
           />
         </div>
 
-        {/* <div className="my-8">
-          <Button variant={"outline"} type="submit" className="w-full py-6">
-            Save Habit
-          </Button>
-        </div> */}
+        <div className="my-8">
+          <NewHabitSuggestionsButton />
+        </div>
       </form>
     </div>
   );
