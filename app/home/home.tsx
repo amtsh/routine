@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon, SparklesIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -143,7 +143,7 @@ export function NewHabitSuggestionsButton() {
     <Link href="/suggestions" className="block">
       <Button variant="ghost" className="hover:bg-transparent px-0">
         <span className="text-lg flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-amber-400">
-          <SparklesIcon className="w-4 h-4" />
+          ✨
         </span>
         <div className="text-sm font-medium text-zinc-400">
           Habit Suggestions

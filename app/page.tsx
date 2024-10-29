@@ -28,7 +28,7 @@ export default function Index() {
             <PlusIcon className="w-6 h-6 text-zinc-400" />
           </Link>
 
-          <Menubar>
+          <Menubar className="border-none">
             <MenubarMenu>
               <MenubarTrigger>
                 <EllipsisIcon className="w-6 h-6 text-zinc-400" />
