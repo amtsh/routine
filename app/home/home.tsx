@@ -57,7 +57,9 @@ export default function Home() {
           />
         ))}
 
-        <NewHabitRow />
+        <div className="py-4">
+          <NewHabitRow />
+        </div>
       </div>
     </>
   );
