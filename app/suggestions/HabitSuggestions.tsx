@@ -8,65 +8,11 @@ import { NewHabitButton } from "../home/home";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import { getSuggestionHabits } from "@/lib/utils";
+
+const suggestions = getSuggestionHabits();
 
 export default function HabitSuggestions() {
-  const suggestions: Habit[] = [
-    {
-      id: "1",
-      name: "Drink Water",
-      icon: "💧",
-      color: "bg-blue-500",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-    {
-      id: "2",
-      name: "Exercise",
-      icon: "🏋️",
-      color: "bg-green-500",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-    {
-      id: "3",
-      name: "Meditate",
-      icon: "🧘",
-      color: "bg-purple-500",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-    {
-      id: "4",
-      name: "Read",
-      icon: "📖",
-      color: "bg-orange-500",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-    {
-      id: "5",
-      name: "Take Vitamin D",
-      icon: "🧴",
-      color: "bg-yellow-500",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-    {
-      id: "6",
-      name: "Wash Face",
-      icon: "🚿",
-      color: "bg-blue-400",
-      streak: 0,
-      completedOn: [],
-      createdAt: Date.now(),
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <div className="flex justify-between items-center mb-6">

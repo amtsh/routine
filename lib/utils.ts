@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Habit } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -63,5 +64,91 @@ export function getBgColors() {
     "bg-rose-400",
     "bg-red-400",
     "bg-orange-400",
+  ];
+}
+
+export function getSuggestionHabits(): Habit[] {
+  return [
+    {
+      id: "exercise",
+      name: "Exercise",
+      icon: "🏋️‍♀️",
+      streak: 0,
+      color: "bg-blue-400",
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "balanced-diet",
+      name: "Eat Balanced Diet",
+      icon: "🥗",
+      streak: 0,
+      color: "bg-green-400",
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "skincare-routine",
+      name: "Skincare Routine",
+      icon: "🧴",
+      streak: 0,
+      color: "bg-pink-400",
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "meditate",
+      name: "Meditate",
+      icon: "🧘",
+      color: "bg-purple-400",
+      streak: 0,
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "read",
+      name: "Read",
+      icon: "📖",
+      color: "bg-orange-400",
+      streak: 0,
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "vitamins",
+      name: "Take Vitamins",
+      icon: "💊",
+      color: "bg-yellow-400",
+      streak: 0,
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "walk-in-nature",
+      name: "Walk in Nature",
+      icon: "🌳",
+      streak: 0,
+      color: "bg-green-400",
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "speak-with-a-friend",
+      name: "Talk to a Friend",
+      icon: "🗣️",
+      streak: 0,
+      color: "bg-blue-400",
+      completedOn: [],
+      createdAt: 0,
+    },
+    {
+      id: "gratitude-journal",
+      name: "Gratitude Journal",
+      icon: "🙏",
+      color: "bg-amber-400",
+      streak: 0,
+      completedOn: [],
+      createdAt: 0,
+    },
   ];
 }
