@@ -97,7 +97,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-pink-400",
       completedOn: [],
       createdAt: 0,
-      interval: "night",
+      interval: "day",
     },
     {
       id: "meditate",
@@ -160,4 +160,20 @@ export function getSuggestionHabits(): Habit[] {
       interval: "night",
     },
   ];
+}
+export const INTERVAL_ORDER = {
+  morning: 0,
+  afternoon: 1,
+  evening: 2,
+  night: 3,
+  day: 4,
+};
+
+export function orderHabits(habits: Habit[]) {
+  return habits.sort((a, b) => {
+    return (
+      INTERVAL_ORDER[a.interval as keyof typeof INTERVAL_ORDER] -
+      INTERVAL_ORDER[b.interval as keyof typeof INTERVAL_ORDER]
+    );
+  });
 }

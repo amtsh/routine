@@ -9,8 +9,8 @@ import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { getSuggestionHabits } from "@/lib/utils";
-
-const suggestions = getSuggestionHabits();
+import { orderHabits } from "@/lib/utils";
+const suggestions = orderHabits(getSuggestionHabits());
 
 export default function HabitSuggestions() {
   return (
@@ -67,7 +67,9 @@ function SuggestHabitRow({ habit }: { habit: Habit }) {
             {habit.name}
           </div>
 
-          <div className="text-zinc-400 text-xs">Every day</div>
+          <div className="text-zinc-400 text-xs">
+            Every {habit.interval || "day"}
+          </div>
         </div>
       </div>
 

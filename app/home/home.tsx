@@ -13,7 +13,7 @@ import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-
+import { orderHabits } from "@/lib/utils";
 const spacingBetweenDays = "w-8";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
   const { getAllHabits } = useSavedHabits();
 
   useEffect(() => {
-    setHabits(getAllHabits());
+    setHabits(orderHabits(getAllHabits()));
   }, [getAllHabits]);
 
   return (
@@ -87,7 +87,9 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
                 {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
               </div>
             ) : (
-              <div className="text-zinc-400 text-xs">Every day</div>
+              <div className="text-zinc-400 text-xs">
+                Every {habit.interval || "day"}
+              </div>
             )}
           </div>
         </div>
