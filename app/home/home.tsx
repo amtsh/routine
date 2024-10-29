@@ -36,7 +36,7 @@ export default function Home() {
               key={index}
               className={`${spacingBetweenDays} text-sm text-center rounded ${
                 index === lastNDates.length - 1
-                  ? "text-zinc-100 bg-zinc-700"
+                  ? "text-zinc-100 font-semibold"
                   : "text-zinc-600"
               }`}
             >
