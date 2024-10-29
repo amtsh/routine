@@ -19,7 +19,7 @@ export default function HabitSuggestions({
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
 
-      <DialogContent className="left-[50%] top-[30%] bg-zinc-900 shadow-md">
+      <DialogContent className="left-[50%] top-[50%] bg-zinc-900 shadow-md">
         <DialogHeader>
           <DialogTitle>
             <div className="text-2xl font-semibold text-zinc-200">

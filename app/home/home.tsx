@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import HabitSuggestions from "./HabitSuggestions";
 
-const spacingBetweenDays = "w-9";
+const spacingBetweenDays = "w-8";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
