@@ -57,7 +57,7 @@ export default function AddHabit() {
       color: selectedColor,
       streak: 0,
       completedOn: [],
-      createdAt: Date.now(),
+      createdAt: Date.now(), // epoch time
     });
 
     router.push("/");

@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       <div className="flex justify-between mb-10 items-center">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-200">
+        <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200">
           Routine
         </h3>
         <div className="flex ">
@@ -36,7 +36,7 @@ export default function Home() {
               className={`${spacingBetweenDays} text-sm text-center rounded ${
                 index === lastNDates.length - 1
                   ? "text-zinc-100 bg-zinc-700"
-                  : "text-zinc-400"
+                  : "text-zinc-600"
               }`}
             >
               {getDayFromDate(day)}
@@ -76,7 +76,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
             <span className="text-2xl">{habit.icon}</span>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col self-center">
             <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
             {showStreaks ? (
