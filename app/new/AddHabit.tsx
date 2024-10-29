@@ -44,14 +44,14 @@ export default function AddHabit() {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const router = useRouter();
 
-  const { saveHabit } = useSavedHabits();
+  const { addHabit } = useSavedHabits();
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
 
-    saveHabit({
+    addHabit({
       id: uuidv4(),
       name: habitName,
       icon: emoji,

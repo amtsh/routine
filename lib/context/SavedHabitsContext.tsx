@@ -7,7 +7,7 @@ import { getDateFromEpochTime, getEpochTimeFromDate } from "../utils";
 interface SavedHabitsContextType {
   savedHabits: Habit[];
   getAllHabits: () => Habit[];
-  saveHabit: (habit: Habit) => void;
+  addHabit: (habit: Habit) => void;
   removeHabit: (name: Habit) => void;
   updateHabit: (habit: Habit) => void;
   addCompletedEntry: (habit: Habit, date: string) => void;
@@ -44,7 +44,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     setSavedHabits(savedHabits);
   }, []);
 
-  const saveHabit = (habit: Habit) => {
+  const addHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
       const updatedHabits = [...prev, habit];
       writeToLocalStorage(updatedHabits);
@@ -113,7 +113,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         savedHabits,
         getAllHabits: () => savedHabits,
-        saveHabit,
+        addHabit,
         removeHabit,
         updateHabit,
         addCompletedEntry,
