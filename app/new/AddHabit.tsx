@@ -15,6 +15,8 @@ import { v4 as uuidv4 } from "uuid";
 import { XIcon } from "lucide-react";
 import Link from "next/link";
 import { NewHabitSuggestionsButton } from "../home/home";
+import { HabitIntervalChoice } from "./HabitIntervalChoice";
+import { Label } from "@/components/ui/label";
 
 const colors = [
   "bg-zinc-400",
@@ -41,6 +43,9 @@ export default function AddHabit() {
   const [selectedColor, setSelectedColor] = useState(colors[2]);
   const [habitName, setHabitName] = useState("");
   const [emoji, setEmoji] = useState("🧘");
+  const [habitInterval, setHabitInterval] = useState<string | undefined>(
+    undefined
+  );
   const [popoverOpen, setPopoverOpen] = useState(false);
   const router = useRouter();
 
@@ -56,6 +61,7 @@ export default function AddHabit() {
       name: habitName,
       icon: emoji,
       color: selectedColor,
+      interval: habitInterval,
       streak: 0,
       completedOn: [],
       createdAt: Date.now(), // epoch time
@@ -74,7 +80,7 @@ export default function AddHabit() {
             </Link>
           </div>
           <div>
-            <Button type="submit" variant={"link"} className="text-lg px-0">
+            <Button type="submit" variant={"link"} className="text-md px-0">
               Save
             </Button>
           </div>
@@ -119,10 +125,8 @@ export default function AddHabit() {
           </div>
         </div>
 
-        <div className="my-8">
-          <label htmlFor="habit-name" className="block text-xs mb-2">
-            Habit name
-          </label>
+        <div className="my-8 space-y-2">
+          <Label htmlFor="habit-name">Habit name</Label>
 
           <Input
             type="text"
@@ -133,11 +137,16 @@ export default function AddHabit() {
             onChange={(e) => setHabitName(e.target.value)}
             required
           />
-        </div>
 
-        <div className="my-8">
           <NewHabitSuggestionsButton />
         </div>
+
+        <HabitIntervalChoice
+          habitInterval={habitInterval}
+          onHabitIntervalChange={(value) => {
+            setHabitInterval(value);
+          }}
+        />
       </form>
     </div>
   );

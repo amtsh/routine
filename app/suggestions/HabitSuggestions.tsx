@@ -74,8 +74,8 @@ function SuggestHabitRow({ habit }: { habit: Habit }) {
       <div className="self-start">
         {added ? (
           <Button variant="ghost" className="hover:bg-transparent" disabled>
-            <span className="text-lg bg-green-800 flex items-center justify-center w-10 h-10 rounded-full">
-              <CheckIcon className="w-4 h-4" />
+            <span className="text-lg bg-green-600 flex items-center justify-center w-10 h-10 rounded-full">
+              <CheckIcon className="w-4 h-4 text-green-100" />
             </span>
           </Button>
         ) : (

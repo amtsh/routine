@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { TrashIcon, XIcon } from "lucide-react";
 import { Habit } from "@/lib/types";
 import Link from "next/link";
+import { HabitIntervalChoice } from "@/app/new/HabitIntervalChoice";
 
 const colors = [
   "bg-zinc-400",
@@ -44,6 +45,9 @@ export default function EditHabit({ habitId }: { habitId: string }) {
   // Initialize state variables only after habit is fetched
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [habitName, setHabitName] = useState<string>("");
+  const [habitInterval, setHabitInterval] = useState<string | undefined>(
+    undefined
+  );
   const [emoji, setEmoji] = useState<string>("");
 
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -60,6 +64,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
     setSelectedColor(fetchedHabit.color);
     setHabitName(fetchedHabit.name);
     setEmoji(fetchedHabit.icon);
+    setHabitInterval(fetchedHabit.interval);
   }, [habitId]);
 
   const handleSubmit = async (
@@ -76,6 +81,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
       name: habitName,
       icon: emoji,
       color: selectedColor,
+      interval: habitInterval,
     });
 
     router.push("/");
@@ -96,7 +102,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
             </Link>
           </div>
           <div>
-            <Button type="submit" variant={"link"} className="text-lg px-0">
+            <Button type="submit" variant={"link"} className="text-md px-0">
               Save
             </Button>
           </div>
@@ -155,6 +161,13 @@ export default function EditHabit({ habitId }: { habitId: string }) {
             required
           />
         </div>
+
+        <HabitIntervalChoice
+          habitInterval={habit?.interval}
+          onHabitIntervalChange={(value: string) => {
+            setHabitInterval(value);
+          }}
+        />
 
         <div className="my-8">
           {/* <Button variant={"outline"} type="submit" className="w-full py-6">

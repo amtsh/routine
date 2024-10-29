@@ -77,6 +77,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-blue-400",
       completedOn: [],
       createdAt: 0,
+      interval: "morning",
     },
     {
       id: "balanced-diet",
@@ -86,6 +87,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-green-400",
       completedOn: [],
       createdAt: 0,
+      interval: "afternoon",
     },
     {
       id: "skincare-routine",
@@ -95,6 +97,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-pink-400",
       completedOn: [],
       createdAt: 0,
+      interval: "night",
     },
     {
       id: "meditate",
@@ -104,6 +107,7 @@ export function getSuggestionHabits(): Habit[] {
       streak: 0,
       completedOn: [],
       createdAt: 0,
+      interval: "morning",
     },
     {
       id: "read",
@@ -113,6 +117,7 @@ export function getSuggestionHabits(): Habit[] {
       streak: 0,
       completedOn: [],
       createdAt: 0,
+      interval: "evening",
     },
     {
       id: "vitamins",
@@ -122,6 +127,7 @@ export function getSuggestionHabits(): Habit[] {
       streak: 0,
       completedOn: [],
       createdAt: 0,
+      interval: "morning",
     },
     {
       id: "walk-in-nature",
@@ -131,6 +137,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-green-400",
       completedOn: [],
       createdAt: 0,
+      interval: "evening",
     },
     {
       id: "speak-with-a-friend",
@@ -140,6 +147,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-blue-400",
       completedOn: [],
       createdAt: 0,
+      interval: "evening",
     },
     {
       id: "gratitude-journal",
@@ -149,6 +157,7 @@ export function getSuggestionHabits(): Habit[] {
       streak: 0,
       completedOn: [],
       createdAt: 0,
+      interval: "night",
     },
   ];
 }

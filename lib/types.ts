@@ -6,6 +6,7 @@ export type Habit = {
   color: string;
   completedOn: number[]; // epoch time
   createdAt: number; // epoch time
+  interval?: string;
 };
 
 // @typescript-eslint/no-unused-vars
