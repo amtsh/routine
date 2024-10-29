@@ -5,16 +5,22 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const DAYS_TO_SHOW = 5;
+export function lastNDays(n: number): string[] {
+  // run in browser only
+  if (typeof window === "undefined") {
+    return [];
+  }
 
-// [2024-10-27, 2024-10-26, 2024-10-25, 2024-10-24, 2024-10-23]
-export function lastNDays(n: number) {
   return Array.from({ length: n }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - i);
-    return date.toLocaleDateString("en-US").split("/").join("-");
+
+    return date.toISOString().split("T")[0];
   }).sort();
 }
+
+export const DAYS_TO_SHOW = 5;
+export const lastNDates = lastNDays(DAYS_TO_SHOW);
 
 export function getDayFromDate(date: string) {
   // 2024-10-27 -> Wed
@@ -27,9 +33,7 @@ export function getLastNStatus(completedOn: number[]) {
     (d) => new Date(d * 1000).toISOString().split("T")[0]
   );
 
-  return lastNDays(DAYS_TO_SHOW).map((day) =>
-    convertedCompletedOn.includes(day)
-  );
+  return lastNDates.map((day) => convertedCompletedOn.includes(day));
 }
 export function getEpochTimeFromDate(date: string) {
   return new Date(date).getTime() / 1000;

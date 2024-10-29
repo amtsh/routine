@@ -6,14 +6,12 @@ import {
   DAYS_TO_SHOW,
   getDayFromDate,
   getLastNStatus,
-  lastNDays,
+  lastNDates,
 } from "@/lib/utils";
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
-
-const lastNDates = lastNDays(DAYS_TO_SHOW);
 
 const spacingBetweenDays = "w-9";
 
