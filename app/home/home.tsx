@@ -15,6 +15,7 @@ import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { orderHabits } from "@/lib/utils";
+import Image from "next/image";
 const spacingBetweenDays = "w-8";
 
 export default function Home() {
@@ -46,6 +47,8 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {habits.length === 0 && <EmptyState />}
 
       <div className="space-y-8">
         {habits.map((habit, index) => (
@@ -163,4 +166,31 @@ function CompletedStatus({ color }: { color: string }) {
 
 function IncompleteStatus({ color }: { color: string }) {
   return <div className={cn("w-5 h-5 rounded opacity-20", color)} />;
+}
+
+function EmptyState() {
+  return (
+    <div className="p-4 overflow-hidden rounded-md border border-gray-800 flex justify-center items-center">
+      {/* Mobile */}
+      <div className="md:hidden">
+        <Image
+          src={"/meditate-portrait.jpg"}
+          width={1350}
+          height={1}
+          alt={"Boy meditating"}
+          className="object-cover transition-all hover:scale-105 rounded-md"
+        />
+      </div>
+      {/* Desktop */}
+      <div className="hidden md:block">
+        <Image
+          src={"/meditate-landscape.jpg"}
+          width={1600}
+          height={1}
+          alt={"Boy meditating"}
+          className="object-scale-down transition-all hover:scale-105 rounded-md"
+        />
+      </div>
+    </div>
+  );
 }
