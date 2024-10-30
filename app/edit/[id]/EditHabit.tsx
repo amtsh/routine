@@ -15,6 +15,7 @@ import { TrashIcon, XIcon } from "lucide-react";
 import { Habit } from "@/lib/types";
 import Link from "next/link";
 import { HabitIntervalChoice } from "@/app/new/HabitIntervalChoice";
+import { Label } from "@/components/ui/label";
 
 const colors = [
   "bg-zinc-400",
@@ -120,7 +121,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
                 <div
                   className={`w-24 h-24 ${selectedColor} bg-opacity-30 rounded-full flex items-center justify-center`}
                 >
-                  <span className="text-4xl">{emoji}</span>
+                  <span className="text-5xl">{emoji}</span>
                 </div>
               </PopoverTrigger>
               <PopoverContent className="w-full">
@@ -134,22 +135,20 @@ export default function EditHabit({ habitId }: { habitId: string }) {
             </Popover>
           </div>
 
-          <div className="grid grid-cols-6 gap-4 md:grid-cols-12 place-items-center mb-2">
+          <div className="grid grid-cols-6 gap-6 md:grid-cols-12 place-items-center mb-2">
             {colors.map((color) => (
               <button
                 type="button"
                 key={color}
-                className={`w-10 h-10 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
+                className={`w-8 h-8 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
                 onClick={() => setSelectedColor(color)}
               />
             ))}
           </div>
         </div>
 
-        <div className="my-8">
-          <label htmlFor="habit-name" className="block text-xs mb-2">
-            Habit name
-          </label>
+        <div className="my-8 space-y-2">
+          <Label htmlFor="habit-name">Habit name</Label>
 
           <Input
             type="text"

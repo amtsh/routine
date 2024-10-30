@@ -87,7 +87,7 @@ export function getSuggestionHabits(): Habit[] {
       color: "bg-green-400",
       completedOn: [],
       createdAt: 0,
-      interval: "afternoon",
+      interval: "day",
     },
     {
       id: "skincare-routine",

@@ -30,27 +30,52 @@ export function HabitIntervalChoice({
       >
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="day" id="day" />
-          <Label htmlFor="day">Day</Label>
+          <Label
+            className="text-base text-muted-foreground text pl-1"
+            htmlFor="day"
+          >
+            Day
+          </Label>
         </div>
 
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="morning" id="morning" />
-          <Label htmlFor="morning">Morning</Label>
+          <Label
+            className="text-base text-muted-foreground text pl-1"
+            htmlFor="morning"
+          >
+            Morning
+          </Label>
         </div>
 
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="afternoon" id="afternoon" />
-          <Label htmlFor="afternoon">Afternoon</Label>
+          <Label
+            className="text-base text-muted-foreground text pl-1"
+            htmlFor="afternoon"
+          >
+            Afternoon
+          </Label>
         </div>
 
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="evening" id="evening" />
-          <Label htmlFor="evening">Evening</Label>
+          <Label
+            className="text-base text-muted-foreground text pl-1"
+            htmlFor="evening"
+          >
+            Evening
+          </Label>
         </div>
 
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="night" id="night" />
-          <Label htmlFor="night">Night</Label>
+          <Label
+            className="text-base text-muted-foreground pl-1"
+            htmlFor="night"
+          >
+            Night
+          </Label>
         </div>
       </RadioGroup>
     </div>
