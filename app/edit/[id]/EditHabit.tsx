@@ -110,7 +110,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
         </div>
         <div className="flex justify-between mb-10 items-center">
           <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-200">
-            Update Habit
+            {habitName}
           </h3>
         </div>
 

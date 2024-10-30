@@ -58,7 +58,7 @@ export default function Home() {
           />
         ))}
 
-        <div className="py-4">
+        <div className="py-8">
           <NewHabitRow />
         </div>
       </div>
