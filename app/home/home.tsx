@@ -179,6 +179,8 @@ function EmptyState() {
           height={1}
           alt={"Boy meditating"}
           className="object-cover transition-all hover:scale-105 rounded-md"
+          priority
+          quality={100}
         />
       </div>
       {/* Desktop */}
@@ -189,6 +191,8 @@ function EmptyState() {
           height={1}
           alt={"Boy meditating"}
           className="object-scale-down transition-all hover:scale-105 rounded-md"
+          priority
+          quality={100}
         />
       </div>
     </div>
