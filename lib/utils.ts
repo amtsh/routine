@@ -177,3 +177,15 @@ export function orderHabits(habits: Habit[]) {
     );
   });
 }
+
+export function getStreaksCount(status: boolean[]) {
+  let currentStreak = 0;
+  for (let i = status.length - 1; i >= 0; i--) {
+    if (status[i]) {
+      currentStreak++;
+    } else {
+      break;
+    }
+  }
+  return currentStreak;
+}

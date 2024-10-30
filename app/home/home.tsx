@@ -6,6 +6,7 @@ import {
   DAYS_TO_SHOW,
   getDayFromDate,
   getLastNStatus,
+  getStreaksCount,
   lastNDates,
 } from "@/lib/utils";
 import Link from "next/link";
@@ -67,7 +68,8 @@ export default function Home() {
 
 function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
-  const [showStreaks, setShowStreaks] = useState(false);
+  // const [showStreaks, setShowStreaks] = useState(true);
+  const streakCount = getStreaksCount(status);
 
   return (
     <div className="flex items-center">
@@ -82,9 +84,9 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
           <div className="flex flex-col self-center">
             <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
-            {showStreaks ? (
+            {streakCount > 1 ? (
               <div className="text-orange-500 text-xs ">
-                {habit.streak} {habit.streak > 1 ? "s" : ""} streak&nbsp;🔥
+                {streakCount} day streak &nbsp;🔥
               </div>
             ) : (
               <div className="text-zinc-400 text-xs">
