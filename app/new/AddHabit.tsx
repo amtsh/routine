@@ -62,7 +62,6 @@ export default function AddHabit() {
       icon: emoji,
       color: selectedColor,
       interval: habitInterval,
-      streak: 0,
       completedOn: [],
       createdAt: Date.now(), // epoch time
     });
