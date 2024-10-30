@@ -18,6 +18,27 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Routine - Habit Tracker",
   description: "Improve quality of life by building good habits",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Routine - Habit Tracker",
+    description: "Improve quality of life by building good habits",
+    url: "https://routinehabits.vercel.app",
+    siteName: "Routine",
+    images: [
+      {
+        url: "https://routinehabits.vercel.app/og-image.jpg",
+        alt: "Routine Habit Tracker",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    title: "Routine - Habit Tracker",
+    description: "Improve quality of life by building good habits",
+    images: ["https://routinehabits.vercel.app/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
