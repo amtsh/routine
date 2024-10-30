@@ -120,6 +120,7 @@ export default function AddHabit() {
                 key={color}
                 className={`w-8 h-8 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
                 onClick={() => setSelectedColor(color)}
+                tabIndex={0}
               />
             ))}
           </div>

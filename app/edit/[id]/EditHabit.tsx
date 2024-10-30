@@ -142,6 +142,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
                 key={color}
                 className={`w-8 h-8 ${color} rounded-full focus:outline-none focus:ring-4 focus:ring-white`}
                 onClick={() => setSelectedColor(color)}
+                tabIndex={0}
               />
             ))}
           </div>
