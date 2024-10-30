@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { orderHabits } from "@/lib/utils";
 import Image from "next/image";
+
 const spacingBetweenDays = "w-8";
 
 export default function Home() {
@@ -28,23 +29,26 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-between mb-10 items-center">
+      <div className="grid grid-cols-2 gap-0 mb-10 items-center">
         <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200">
           Routine
         </h3>
-        <div className="flex ">
-          {lastNDates.map((day, index) => (
-            <div
-              key={index}
-              className={`${spacingBetweenDays} text-sm text-center rounded ${
-                index === lastNDates.length - 1
-                  ? "text-zinc-100 font-semibold"
-                  : "text-zinc-600"
-              }`}
-            >
-              {getDayFromDate(day)}
-            </div>
-          ))}
+        {/* Days */}
+        <div className="">
+          <div className={`grid grid-cols-${DAYS_TO_SHOW} gap-0`}>
+            {lastNDates.map((day, index) => (
+              <div
+                key={index}
+                className={`text-sm text-end rounded ${
+                  index === lastNDates.length - 1
+                    ? "text-zinc-100 font-semibold"
+                    : "text-zinc-600"
+                }`}
+              >
+                {getDayFromDate(day)}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -75,48 +79,53 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const streakCount = getStreaksCount(status);
 
   return (
-    <div className="flex items-center">
-      <Link href={`/edit/${habit.id}`}>
-        <div className="flex">
-          <div
-            className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
-          >
-            <span className="text-2xl">{habit.icon}</span>
+    <div className="grid grid-cols-2 place-items-stretch items-center">
+      {/* Left grid item */}
+      <div>
+        <Link href={`/edit/${habit.id}`}>
+          <div className="flex">
+            <div
+              className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
+            >
+              <span className="text-2xl">{habit.icon}</span>
+            </div>
+
+            <div className="flex flex-col self-center">
+              <div className="text-sm md:text-lg font-bold">{habit.name}</div>
+
+              {streakCount > 1 ? (
+                <div className="text-orange-500 text-xs ">
+                  {streakCount} day streak &nbsp;🔥
+                </div>
+              ) : (
+                <div className="text-zinc-400 text-xs">
+                  Every {habit.interval || "day"}
+                </div>
+              )}
+            </div>
           </div>
+        </Link>
+      </div>
 
-          <div className="flex flex-col self-center">
-            <div className="text-sm md:text-lg font-bold">{habit.name}</div>
-
-            {streakCount > 1 ? (
-              <div className="text-orange-500 text-xs ">
-                {streakCount} day streak &nbsp;🔥
-              </div>
-            ) : (
-              <div className="text-zinc-400 text-xs">
-                Every {habit.interval || "day"}
-              </div>
-            )}
-          </div>
+      {/* Right grid item */}
+      {/* Statuses */}
+      <div>
+        <div className={`grid grid-cols-${DAYS_TO_SHOW} gap-0`}>
+          {lastNDates.map((date, index) => (
+            <div key={index} className={"text-end"}>
+              {status[index] ? (
+                <button onClick={() => undoCompletedEntry(habit, date)}>
+                  <CompletedStatus color={habit.color} />
+                </button>
+              ) : (
+                <button onClick={() => addCompletedEntry(habit, date)}>
+                  <IncompleteStatus color={habit.color} />
+                </button>
+              )}
+            </div>
+          ))}
         </div>
-      </Link>
-      <div className="flex-grow" />
-
-      {lastNDates.map((date, index) => (
-        <div
-          key={index}
-          className={`${spacingBetweenDays} flex justify-center`}
-        >
-          {status[index] ? (
-            <button onClick={() => undoCompletedEntry(habit, date)}>
-              <CompletedStatus color={habit.color} />
-            </button>
-          ) : (
-            <button onClick={() => addCompletedEntry(habit, date)}>
-              <IncompleteStatus color={habit.color} />
-            </button>
-          )}
-        </div>
-      ))}
+      </div>
     </div>
   );
 }
@@ -170,7 +179,7 @@ function IncompleteStatus({ color }: { color: string }) {
 
 function EmptyState() {
   return (
-    <div className="p-4 overflow-hidden rounded-md border border-gray-800 flex justify-center items-center">
+    <div className="p-4 overflow-hidden rounded-md border-gray-800 flex justify-center items-center">
       {/* Mobile */}
       <div className="md:hidden">
         <Image
