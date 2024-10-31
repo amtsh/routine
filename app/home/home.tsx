@@ -35,7 +35,7 @@ export default function Home() {
         </h3>
         {/* Days */}
         <div className="">
-          <div className={`grid grid-cols-${DAYS_TO_SHOW} gap-0`}>
+          <div className={`grid grid-cols-5 gap-0`}>
             {lastNDates.map((day, index) => (
               <div
                 key={index}
@@ -110,7 +110,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
       {/* Right grid item */}
       {/* Statuses */}
       <div>
-        <div className={`grid grid-cols-${DAYS_TO_SHOW} gap-0`}>
+        <div className={`grid grid-cols-5 gap-0`}>
           {lastNDates.map((date, index) => (
             <div key={index} className={"text-end"}>
               {status[index] ? (
