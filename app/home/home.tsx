@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { orderHabits } from "@/lib/utils";
 import Image from "next/image";
-
+import PWAPrompt from "react-ios-pwa-prompt";
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const { getAllHabits } = useSavedHabits();
@@ -67,6 +67,11 @@ export default function Home() {
           <NewHabitRow />
         </div>
       </div>
+
+      <PWAPrompt
+        copyShareStep={"Press the 'Share' icon"}
+        appIconPath="favicon.ico"
+      />
     </>
   );
 }
