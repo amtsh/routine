@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import { XIcon } from "lucide-react";
 import Link from "next/link";
 import { NewHabitSuggestionsButton } from "../home/home";
-import { HabitIntervalChoice } from "./HabitIntervalChoice";
+import { HabitIntervalChoice } from "./HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
 
 const colors = [

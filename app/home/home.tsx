@@ -17,8 +17,6 @@ import { Button } from "@/components/ui/button";
 import { orderHabits } from "@/lib/utils";
 import Image from "next/image";
 
-const spacingBetweenDays = "w-8";
-
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const { getAllHabits } = useSavedHabits();
