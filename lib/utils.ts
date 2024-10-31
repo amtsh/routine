@@ -67,8 +67,8 @@ export function getBgColors() {
   ];
 }
 
-export function getSuggestionHabits(): Habit[] {
-  return [
+export function getSuggestionHabits(): { title: string; habits: Habit[] }[] {
+  const physicalHealthHabits: Habit[] = [
     {
       id: "exercise",
       name: "Exercise",
@@ -97,28 +97,22 @@ export function getSuggestionHabits(): Habit[] {
       interval: "day",
     },
     {
-      id: "meditate",
-      name: "Meditate",
-      icon: "🧘",
-      color: "bg-purple-400",
-      completedOn: [],
-      createdAt: 0,
-      interval: "morning",
-    },
-    {
-      id: "read",
-      name: "Read",
-      icon: "📖",
-      color: "bg-orange-400",
-      completedOn: [],
-      createdAt: 0,
-      interval: "evening",
-    },
-    {
       id: "vitamins",
       name: "Take Vitamins",
       icon: "💊",
       color: "bg-yellow-400",
+      completedOn: [],
+      createdAt: 0,
+      interval: "morning",
+    },
+  ];
+
+  const mentalHealthHabits: Habit[] = [
+    {
+      id: "meditate",
+      name: "Meditate",
+      icon: "🧘",
+      color: "bg-purple-400",
       completedOn: [],
       createdAt: 0,
       interval: "morning",
@@ -149,6 +143,33 @@ export function getSuggestionHabits(): Habit[] {
       completedOn: [],
       createdAt: 0,
       interval: "night",
+    },
+  ];
+
+  const knowledgeHabits: Habit[] = [
+    {
+      id: "read",
+      name: "Read",
+      icon: "📖",
+      color: "bg-orange-400",
+      completedOn: [],
+      createdAt: 0,
+      interval: "evening",
+    },
+  ];
+
+  return [
+    {
+      title: "Improve Physical Health",
+      habits: physicalHealthHabits,
+    },
+    {
+      title: "Improve Mental Health",
+      habits: mentalHealthHabits,
+    },
+    {
+      title: "Improve Knowledge",
+      habits: knowledgeHabits,
     },
   ];
 }

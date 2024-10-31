@@ -9,8 +9,8 @@ import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { getSuggestionHabits } from "@/lib/utils";
-import { orderHabits } from "@/lib/utils";
-const suggestions = orderHabits(getSuggestionHabits());
+
+const suggestions = getSuggestionHabits();
 
 export default function HabitSuggestions() {
   return (
@@ -29,13 +29,21 @@ export default function HabitSuggestions() {
         </h3>
       </div>
 
-      <div className="space-y-8">
-        {suggestions.map((habit, index) => (
-          <SuggestHabitRow key={index} habit={habit} />
-        ))}
+      {suggestions.map((suggestion, index) => (
+        <div className="space-y-8 mb-16" key={index}>
+          <h3 className="text-lg md:text-xl font-semibold tracking-tight text-zinc-400">
+            {suggestion.title}
+          </h3>
 
-        <NewHabitButton />
-      </div>
+          <div className="space-y-8">
+            {suggestion.habits.map((habit, index) => (
+              <SuggestHabitRow key={index} habit={habit} />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <NewHabitButton />
     </div>
   );
 }
