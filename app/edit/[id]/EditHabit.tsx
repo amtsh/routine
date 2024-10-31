@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { TrashIcon, XIcon } from "lucide-react";
 import { Habit } from "@/lib/types";
 import Link from "next/link";
-import { HabitIntervalChoice } from "@/app/new/HabitIntervalChoice";
+import { HabitIntervalChoiceRadio } from "@/app/new/HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
 
 const colors = [
@@ -162,7 +162,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
           />
         </div>
 
-        <HabitIntervalChoice
+        <HabitIntervalChoiceRadio
           habitInterval={habit?.interval}
           onHabitIntervalChange={(value: string) => {
             setHabitInterval(value);

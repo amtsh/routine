@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import { XIcon } from "lucide-react";
 import Link from "next/link";
 import { NewHabitSuggestionsButton } from "../home/home";
-import { HabitIntervalChoice } from "./HabitIntervalChoiceRadio";
+import { HabitIntervalChoiceRadio } from "./HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
 
 const colors = [
@@ -100,7 +100,7 @@ export default function AddHabit() {
         </div>
 
         <div className="my-8">
-          <HabitIntervalChoice
+          <HabitIntervalChoiceRadio
             habitInterval={habitInterval}
             onHabitIntervalChange={(value) => {
               setHabitInterval(value);
