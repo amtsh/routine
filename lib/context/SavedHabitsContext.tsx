@@ -8,7 +8,7 @@ interface SavedHabitsContextType {
   savedHabits: Habit[];
   getAllHabits: () => Habit[];
   addHabit: (habit: Habit) => void;
-  removeHabit: (name: Habit) => void;
+  removeHabit: (habit: Habit) => void;
   updateHabit: (habit: Habit) => void;
   addCompletedEntry: (habit: Habit, date: string) => void;
   undoCompletedEntry: (habit: Habit, date: string) => void;
@@ -54,7 +54,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeHabit = (habit: Habit) => {
     setSavedHabits((prev) => {
-      const updatedHabits = prev.filter((h) => h.name !== habit.name);
+      const updatedHabits = prev.filter((h) => h.id !== habit.id);
       writeToLocalStorage(updatedHabits);
       return updatedHabits;
     });
