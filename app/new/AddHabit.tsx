@@ -85,11 +85,30 @@ export default function AddHabit() {
           </div>
         </div>
 
-        <div className="flex justify-between mb-10 items-center">
-          <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-200">
-            Add Habit
-          </h3>
+        <div className="my-8 space-y-4">
+          <Input
+            type="text"
+            id="habit-name"
+            placeholder="Name your habit"
+            value={habitName}
+            className="py-6 text-lg font-bold"
+            onChange={(e) => setHabitName(e.target.value)}
+            required
+          />
+
+          <NewHabitSuggestionsButton />
         </div>
+
+        <div className="my-8">
+          <HabitIntervalChoice
+            habitInterval={habitInterval}
+            onHabitIntervalChange={(value) => {
+              setHabitInterval(value);
+            }}
+          />
+        </div>
+
+        <Label className="text-base block mb-4">Choose emoji</Label>
 
         <div className="bg-zinc-900 rounded-lg p-6">
           <div className="flex justify-center mb-8">
@@ -125,28 +144,11 @@ export default function AddHabit() {
           </div>
         </div>
 
-        <div className="my-8 space-y-2">
-          <Label htmlFor="habit-name">Habit name</Label>
-
-          <Input
-            type="text"
-            id="habit-name"
-            placeholder="Meditate"
-            value={habitName}
-            className="py-6 text-base font-bold"
-            onChange={(e) => setHabitName(e.target.value)}
-            required
-          />
-
-          <NewHabitSuggestionsButton />
+        <div className="my-8">
+          <Button variant={"outline"} type="submit" className="w-full py-6">
+            Save
+          </Button>
         </div>
-
-        <HabitIntervalChoice
-          habitInterval={habitInterval}
-          onHabitIntervalChange={(value) => {
-            setHabitInterval(value);
-          }}
-        />
 
         <div className="my-16" />
       </form>

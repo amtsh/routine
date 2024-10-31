@@ -19,7 +19,7 @@ export function HabitIntervalChoice({
 
   return (
     <div className="space-y-4">
-      <Label className="">Every</Label>
+      <Label className="text-base">Every</Label>
       <RadioGroup
         value={localIntervalValue}
         defaultValue="day"
@@ -28,16 +28,6 @@ export function HabitIntervalChoice({
           onHabitIntervalChange(value);
         }}
       >
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="day" id="day" />
-          <Label
-            className="text-base text-muted-foreground text pl-1"
-            htmlFor="day"
-          >
-            Day
-          </Label>
-        </div>
-
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="morning" id="morning" />
           <Label
@@ -75,6 +65,16 @@ export function HabitIntervalChoice({
             htmlFor="night"
           >
             Night
+          </Label>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="day" id="day" />
+          <Label
+            className="text-base text-muted-foreground text pl-1"
+            htmlFor="day"
+          >
+            Anytime of day
           </Label>
         </div>
       </RadioGroup>
