@@ -40,7 +40,7 @@ export default function Home() {
                 className={`text-sm text-end rounded ${
                   index === lastNDates.length - 1
                     ? "text-zinc-100 font-semibold"
-                    : "text-zinc-600"
+                    : "text-zinc-400"
                 }`}
               >
                 {getDayFromDate(day)}
