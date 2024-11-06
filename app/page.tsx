@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import Home from "./home/home";
-import { PlusIcon, EllipsisIcon, RotateCcwIcon, ReplyIcon } from "lucide-react";
+import {
+  PlusIcon,
+  EllipsisIcon,
+  RotateCcwIcon,
+  ReplyIcon,
+  ArrowDownUpIcon,
+} from "lucide-react";
 import {
   Menubar,
   MenubarContent,
@@ -38,6 +44,12 @@ export default function Index() {
                   Refresh
                   <MenubarShortcut>
                     <RotateCcwIcon className="w-4 h-4" />
+                  </MenubarShortcut>
+                </MenubarItem>
+                <MenubarItem>
+                  Reorder
+                  <MenubarShortcut>
+                    <ArrowDownUpIcon className="w-4 h-4" />
                   </MenubarShortcut>
                 </MenubarItem>
                 <Link
