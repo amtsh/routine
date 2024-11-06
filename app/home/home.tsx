@@ -101,7 +101,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
         <div>
           <div className="flex">
             <div
-              className={`cursor-grabbing select-none w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
+              className={`cursor-grabbing w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
               onPointerDown={(e) => {
                 dragControls.start(e);
               }}
