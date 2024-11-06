@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
-import { Reorder, useDragControls } from "framer-motion";
+import { DragControls, Reorder, useDragControls } from "framer-motion";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -54,23 +54,20 @@ export default function Home() {
       {habits.length === 0 && <EmptyState />}
 
       <Reorder.Group
+        axis="y"
         as="ul"
         values={habits}
         onReorder={setHabits} // Update habits on reorder
         className="space-y-8"
       >
         {habits.map((habit) => (
-          <Reorder.Item
-            key={habit.id} // Use a unique key for each habit
-            value={habit} // Set the value to the habit
-          >
-            <HabitRow
-              habit={habit}
-              status={getLastNStatus(
-                habit.completedOn.sort().slice(-DAYS_TO_SHOW)
-              )}
-            />
-          </Reorder.Item>
+          <HabitRow
+            key={habit.id}
+            habit={habit}
+            status={getLastNStatus(
+              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+            )}
+          />
         ))}
       </Reorder.Group>
 
@@ -90,57 +87,66 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
   // const [showStreaks, setShowStreaks] = useState(true);
   const streakCount = getStreaksCount(status);
-  const controls = useDragControls();
+  const dragControls = useDragControls();
 
   return (
-    <div className="grid grid-cols-2 place-items-stretch items-center">
-      {/* Left grid item */}
-      <div>
-        <div className="flex">
-          <div
-            className={`reorder-habits w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
-            onPointerDown={(e) => controls.start(e)}
-          >
-            <span className="text-2xl">{habit.icon}</span>
+    <Reorder.Item
+      id={habit.id}
+      value={habit} // Set the value to the habit
+      dragListener={false} // prevent drag on the whole row
+      dragControls={dragControls}
+    >
+      <div className="grid grid-cols-2 place-items-stretch items-center">
+        {/* Left grid item */}
+        <div>
+          <div className="flex">
+            <div
+              className={`cursor-grabbing select-none w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
+              onPointerDown={(e) => {
+                dragControls.start(e);
+              }}
+            >
+              <span className="select-none text-2xl">{habit.icon}</span>
+            </div>
+            <Link href={`/edit/${habit.id}`}>
+              <div className="flex flex-col self-center">
+                <div className="text-sm md:text-lg font-bold">{habit.name}</div>
+
+                {streakCount > 1 ? (
+                  <div className="text-orange-500 text-xs ">
+                    {streakCount} day streak &nbsp;🔥
+                  </div>
+                ) : (
+                  <div className="text-zinc-400 text-xs">
+                    Every {habit.interval || "day"}
+                  </div>
+                )}
+              </div>
+            </Link>
           </div>
-          <Link href={`/edit/${habit.id}`}>
-            <div className="flex flex-col self-center">
-              <div className="text-sm md:text-lg font-bold">{habit.name}</div>
+        </div>
 
-              {streakCount > 1 ? (
-                <div className="text-orange-500 text-xs ">
-                  {streakCount} day streak &nbsp;🔥
-                </div>
-              ) : (
-                <div className="text-zinc-400 text-xs">
-                  Every {habit.interval || "day"}
-                </div>
-              )}
-            </div>
-          </Link>
+        {/* Right grid item */}
+        {/* Statuses */}
+        <div>
+          <div className={`grid grid-cols-5 gap-0`}>
+            {lastNDates.map((date, index) => (
+              <div key={index} className={"text-end"}>
+                {status[index] ? (
+                  <button onClick={() => undoCompletedEntry(habit, date)}>
+                    <CompletedStatus color={habit.color} />
+                  </button>
+                ) : (
+                  <button onClick={() => addCompletedEntry(habit, date)}>
+                    <IncompleteStatus color={habit.color} />
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Right grid item */}
-      {/* Statuses */}
-      <div>
-        <div className={`grid grid-cols-5 gap-0`}>
-          {lastNDates.map((date, index) => (
-            <div key={index} className={"text-end"}>
-              {status[index] ? (
-                <button onClick={() => undoCompletedEntry(habit, date)}>
-                  <CompletedStatus color={habit.color} />
-                </button>
-              ) : (
-                <button onClick={() => addCompletedEntry(habit, date)}>
-                  <IncompleteStatus color={habit.color} />
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    </Reorder.Item>
   );
 }
 
