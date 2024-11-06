@@ -14,15 +14,16 @@ import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { orderHabits } from "@/lib/utils";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
+import { Reorder, useDragControls } from "framer-motion";
+
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const { getAllHabits } = useSavedHabits();
 
   useEffect(() => {
-    setHabits(orderHabits(getAllHabits()));
+    setHabits(getAllHabits());
   }, [getAllHabits]);
 
   return (
@@ -52,20 +53,29 @@ export default function Home() {
 
       {habits.length === 0 && <EmptyState />}
 
-      <div className="space-y-8">
-        {habits.map((habit, index) => (
-          <HabitRow
-            key={index}
-            habit={habit}
-            status={getLastNStatus(
-              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
-            )}
-          />
+      <Reorder.Group
+        as="ul"
+        values={habits}
+        onReorder={setHabits} // Update habits on reorder
+        className="space-y-8"
+      >
+        {habits.map((habit) => (
+          <Reorder.Item
+            key={habit.id} // Use a unique key for each habit
+            value={habit} // Set the value to the habit
+          >
+            <HabitRow
+              habit={habit}
+              status={getLastNStatus(
+                habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+              )}
+            />
+          </Reorder.Item>
         ))}
+      </Reorder.Group>
 
-        <div className="py-8">
-          <NewHabitRow />
-        </div>
+      <div className="my-16">
+        <NewHabitRow />
       </div>
 
       <PWAPrompt
@@ -80,19 +90,20 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
   // const [showStreaks, setShowStreaks] = useState(true);
   const streakCount = getStreaksCount(status);
+  const controls = useDragControls();
 
   return (
     <div className="grid grid-cols-2 place-items-stretch items-center">
       {/* Left grid item */}
       <div>
-        <Link href={`/edit/${habit.id}`}>
-          <div className="flex">
-            <div
-              className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
-            >
-              <span className="text-2xl">{habit.icon}</span>
-            </div>
-
+        <div className="flex">
+          <div
+            className={`reorder-habits w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
+            onPointerDown={(e) => controls.start(e)}
+          >
+            <span className="text-2xl">{habit.icon}</span>
+          </div>
+          <Link href={`/edit/${habit.id}`}>
             <div className="flex flex-col self-center">
               <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
@@ -106,8 +117,8 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
                 </div>
               )}
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
 
       {/* Right grid item */}
