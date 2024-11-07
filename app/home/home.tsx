@@ -16,13 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
-import {
-  DragControls,
-  Reorder,
-  useDragControls,
-  useMotionValue,
-} from "framer-motion";
-import { useRaisedShadow } from "@/lib/use-raised-shadow";
+import { Reorder, useDragControls } from "framer-motion";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -94,8 +88,6 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   // const [showStreaks, setShowStreaks] = useState(true);
   const streakCount = getStreaksCount(status);
   const dragControls = useDragControls();
-  const y = useMotionValue(0);
-  const boxShadow = useRaisedShadow(y);
 
   return (
     <Reorder.Item
@@ -104,8 +96,6 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
       dragListener={false} // prevent drag on the whole row
       dragControls={dragControls}
       style={{
-        boxShadow,
-        y,
         userSelect: "none",
         WebkitUserSelect: "none",
         MozUserSelect: "none",
@@ -118,6 +108,7 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
             <div
               className="cursor-grab flex items-center justify-center mr-3"
               onPointerDown={(e) => dragControls.start(e)}
+              style={{ touchAction: "none" }}
             >
               <Grip className="w-6 h-6 text-zinc-400" />
             </div>
