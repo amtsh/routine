@@ -62,16 +62,11 @@ export default function Home() {
             )}
           />
         ))}
-        <div>
-          <Link href="/reorder" passHref>
-            <Button variant={"ghost"} className="text-zinc-500">
-              <ArrowUpDown /> Reorder
-            </Button>
-          </Link>
-        </div>
+
+        {habits.length > 0 && <ReorderIconButton />}
       </div>
 
-      <div className="my-16">
+      <div className="my-8">
         <NewHabitRow />
       </div>
 
@@ -186,6 +181,18 @@ function CompletedStatus({ color }: { color: string }) {
 
 function IncompleteStatus({ color }: { color: string }) {
   return <div className={cn("w-5 h-5 rounded opacity-20", color)} />;
+}
+
+function ReorderIconButton() {
+  return (
+    <div>
+      <Link href="/reorder" passHref>
+        <Button variant={"ghost"} className="text-zinc-500">
+          <ArrowUpDown /> Reorder
+        </Button>
+      </Link>
+    </div>
+  );
 }
 
 function EmptyState() {

@@ -37,7 +37,7 @@ export default function Index() {
           <Menubar className="border-none">
             <MenubarMenu>
               <MenubarTrigger>
-                <EllipsisIcon className="w-6 h-6 text-zinc-400" />
+                <EllipsisIcon className="text-zinc-400" />
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem className="p-2" onClick={handleRefresh}>
