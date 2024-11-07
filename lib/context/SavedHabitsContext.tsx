@@ -13,6 +13,7 @@ interface SavedHabitsContextType {
   addCompletedEntry: (habit: Habit, date: string) => void;
   undoCompletedEntry: (habit: Habit, date: string) => void;
   getHabitById: (habitId: string) => Habit | undefined;
+  saveAllHabits: (habits: Habit[]) => void;
   clearCache: () => void;
 }
 
@@ -108,6 +109,11 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     setSavedHabits([]);
   };
 
+  const saveAllHabits = (habits: Habit[]) => {
+    setSavedHabits(habits);
+    writeToLocalStorage(habits);
+  };
+
   return (
     <SavedHabitsContext.Provider
       value={{
@@ -120,6 +126,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
         undoCompletedEntry,
         getHabitById,
         clearCache,
+        saveAllHabits,
       }}
     >
       {children}
