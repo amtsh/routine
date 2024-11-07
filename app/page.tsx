@@ -17,12 +17,8 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
-import { Button } from "@/components/ui/button";
 
 export default function Index() {
-  const { toggleReorderMode, isReorderMode } = useSavedHabits();
-
   const handleRefresh = () => {
     if (typeof window !== "undefined") {
       // refresh the PWA
@@ -38,49 +34,41 @@ export default function Index() {
             <PlusIcon className="w-6 h-6 text-zinc-400" />
           </Link>
 
-          {isReorderMode ? (
-            <Button
-              className="text-md px-0"
-              variant="link"
-              onClick={toggleReorderMode}
-            >
-              Done
-            </Button>
-          ) : (
-            <Menubar className="border-none">
-              <MenubarMenu>
-                <MenubarTrigger>
-                  <EllipsisIcon className="w-6 h-6 text-zinc-400" />
-                </MenubarTrigger>
-                <MenubarContent>
-                  <MenubarItem className="p-2" onClick={handleRefresh}>
-                    Refresh
-                    <MenubarShortcut>
-                      <RotateCcwIcon className="w-4 h-4" />
-                    </MenubarShortcut>
-                  </MenubarItem>
-                  <MenubarItem className="p-2" onClick={toggleReorderMode}>
+          <Menubar className="border-none">
+            <MenubarMenu>
+              <MenubarTrigger>
+                <EllipsisIcon className="w-6 h-6 text-zinc-400" />
+              </MenubarTrigger>
+              <MenubarContent>
+                <MenubarItem className="p-2" onClick={handleRefresh}>
+                  Refresh
+                  <MenubarShortcut>
+                    <RotateCcwIcon className="w-4 h-4" />
+                  </MenubarShortcut>
+                </MenubarItem>
+                <Link href="/reorder">
+                  <MenubarItem className="p-2">
                     Reorder
                     <MenubarShortcut>
                       <ArrowDownUpIcon className="w-4 h-4" />
                     </MenubarShortcut>
                   </MenubarItem>
-                  <Link
-                    href="mailto:amtsh@pm.me?subject=Regarding%20Routine%20app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MenubarItem className="p-2">
-                      Feedback
-                      <MenubarShortcut>
-                        <ReplyIcon className="w-4 h-4" />
-                      </MenubarShortcut>
-                    </MenubarItem>
-                  </Link>
-                </MenubarContent>
-              </MenubarMenu>
-            </Menubar>
-          )}
+                </Link>
+                <Link
+                  href="mailto:amtsh@pm.me?subject=Regarding%20Routine%20app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MenubarItem className="p-2">
+                    Feedback
+                    <MenubarShortcut>
+                      <ReplyIcon className="w-4 h-4" />
+                    </MenubarShortcut>
+                  </MenubarItem>
+                </Link>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
         </div>
         <Home />
       </div>

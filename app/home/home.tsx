@@ -16,12 +16,10 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
-import { Reorder } from "framer-motion";
-import { HabitRowToDrag } from "@/app/home/HabitRowToDrag";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
-  const { getAllHabits, isReorderMode, toggleReorderMode } = useSavedHabits();
+  const { getAllHabits } = useSavedHabits();
 
   useEffect(() => {
     setHabits(getAllHabits());
@@ -54,40 +52,20 @@ export default function Home() {
 
       {habits.length === 0 && <EmptyState />}
 
-      <Reorder.Group
-        axis="y"
-        as="ul"
-        values={habits}
-        onReorder={setHabits} // Update habits on reorder
-        className="space-y-8"
-      >
-        {habits.map((habit) =>
-          isReorderMode ? (
-            <HabitRowToDrag key={habit.id} habit={habit} />
-          ) : (
-            <HabitRow
-              key={habit.id}
-              habit={habit}
-              status={getLastNStatus(
-                habit.completedOn.sort().slice(-DAYS_TO_SHOW)
-              )}
-            />
-          )
-        )}
-      </Reorder.Group>
+      <div className="space-y-8">
+        {habits.map((habit) => (
+          <HabitRow
+            key={habit.id}
+            habit={habit}
+            status={getLastNStatus(
+              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+            )}
+          />
+        ))}
+      </div>
 
       <div className="my-16">
-        {isReorderMode ? (
-          <Button
-            className="text-md px-0"
-            variant="link"
-            onClick={toggleReorderMode}
-          >
-            Done
-          </Button>
-        ) : (
-          <NewHabitRow />
-        )}
+        <NewHabitRow />
       </div>
 
       <PWAPrompt
