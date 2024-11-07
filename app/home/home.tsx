@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { ArrowUpDown, PlusIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -62,6 +62,13 @@ export default function Home() {
             )}
           />
         ))}
+        <div>
+          <Link href="/reorder" passHref>
+            <Button variant={"ghost"} className="text-zinc-500">
+              <ArrowUpDown /> Reorder
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="my-16">
