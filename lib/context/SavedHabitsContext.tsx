@@ -14,6 +14,8 @@ interface SavedHabitsContextType {
   undoCompletedEntry: (habit: Habit, date: string) => void;
   getHabitById: (habitId: string) => Habit | undefined;
   clearCache: () => void;
+  isReorderMode: boolean;
+  toggleReorderMode?: () => void;
 }
 
 const SavedHabitsContext = createContext<SavedHabitsContextType | undefined>(
@@ -25,6 +27,7 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const localStorageKey = "routinehabits.vercel.app:savedHabits";
   const [savedHabits, setSavedHabits] = useState<Habit[]>([]);
+  const [isReorderMode, setIsReorderMode] = useState(false);
 
   const writeToLocalStorage = (habits: Habit[]) => {
     localStorage.setItem(localStorageKey, JSON.stringify(habits));
@@ -108,6 +111,10 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
     setSavedHabits([]);
   };
 
+  const toggleReorderMode = () => {
+    setIsReorderMode((prev) => !prev);
+  };
+
   return (
     <SavedHabitsContext.Provider
       value={{
@@ -120,6 +127,8 @@ export const SavedHabitsProvider: React.FC<{ children: React.ReactNode }> = ({
         undoCompletedEntry,
         getHabitById,
         clearCache,
+        isReorderMode,
+        toggleReorderMode,
       }}
     >
       {children}

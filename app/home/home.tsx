@@ -1,6 +1,6 @@
 "use client";
 
-import { Grip, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -16,11 +16,12 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder } from "framer-motion";
+import { HabitRowToDrag } from "@/components/HabitRowToDrag";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
-  const { getAllHabits } = useSavedHabits();
+  const { getAllHabits, isReorderMode, toggleReorderMode } = useSavedHabits();
 
   useEffect(() => {
     setHabits(getAllHabits());
@@ -60,19 +61,33 @@ export default function Home() {
         onReorder={setHabits} // Update habits on reorder
         className="space-y-8"
       >
-        {habits.map((habit) => (
-          <HabitRow
-            key={habit.id}
-            habit={habit}
-            status={getLastNStatus(
-              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
-            )}
-          />
-        ))}
+        {habits.map((habit) =>
+          isReorderMode ? (
+            <HabitRowToDrag key={habit.id} habit={habit} />
+          ) : (
+            <HabitRow
+              key={habit.id}
+              habit={habit}
+              status={getLastNStatus(
+                habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+              )}
+            />
+          )
+        )}
       </Reorder.Group>
 
       <div className="my-16">
-        <NewHabitRow />
+        {isReorderMode ? (
+          <Button
+            className="text-md px-0"
+            variant="link"
+            onClick={toggleReorderMode}
+          >
+            Done
+          </Button>
+        ) : (
+          <NewHabitRow />
+        )}
       </div>
 
       <PWAPrompt
@@ -87,75 +102,57 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   const { undoCompletedEntry, addCompletedEntry } = useSavedHabits();
   // const [showStreaks, setShowStreaks] = useState(true);
   const streakCount = getStreaksCount(status);
-  const dragControls = useDragControls();
 
   return (
-    <Reorder.Item
-      id={habit.id}
-      value={habit} // Set the value to the habit
-      dragListener={false} // prevent drag on the whole row
-      dragControls={dragControls}
-      style={{
-        userSelect: "none",
-        WebkitUserSelect: "none",
-        MozUserSelect: "none",
-      }}
-    >
-      <div className="grid grid-cols-2 place-items-stretch items-center">
-        {/* Left grid item */}
-        <div>
+    <div className="grid grid-cols-2 place-items-stretch items-center">
+      {/* Left grid item */}
+
+      <div>
+        <Link href={`/edit/${habit.id}`}>
           <div className="flex">
-            <div
-              className="cursor-grab flex items-center justify-center mr-3"
-              onPointerDown={(e) => dragControls.start(e)}
-              style={{ touchAction: "none" }}
-            >
-              <Grip className="w-6 h-6 text-zinc-400" />
-            </div>
             <div
               className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
             >
               <span className="text-2xl">{habit.icon}</span>
             </div>
-            <Link href={`/edit/${habit.id}`}>
-              <div className="flex flex-col self-center">
-                <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
-                {streakCount > 1 ? (
-                  <div className="text-orange-500 text-xs ">
-                    {streakCount} day streak &nbsp;🔥
-                  </div>
-                ) : (
-                  <div className="text-zinc-400 text-xs">
-                    Every {habit.interval || "day"}
-                  </div>
-                )}
-              </div>
-            </Link>
-          </div>
-        </div>
+            <div className="flex flex-col self-center">
+              <div className="text-sm md:text-lg font-bold">{habit.name}</div>
 
-        {/* Right grid item */}
-        {/* Statuses */}
-        <div>
-          <div className={`grid grid-cols-5 gap-0`}>
-            {lastNDates.map((date, index) => (
-              <div key={index} className={"text-end"}>
-                {status[index] ? (
-                  <button onClick={() => undoCompletedEntry(habit, date)}>
-                    <CompletedStatus color={habit.color} />
-                  </button>
-                ) : (
-                  <button onClick={() => addCompletedEntry(habit, date)}>
-                    <IncompleteStatus color={habit.color} />
-                  </button>
-                )}
-              </div>
-            ))}
+              {streakCount > 1 ? (
+                <div className="text-orange-500 text-xs ">
+                  {streakCount} day streak &nbsp;🔥
+                </div>
+              ) : (
+                <div className="text-zinc-400 text-xs">
+                  Every {habit.interval || "day"}
+                </div>
+              )}
+            </div>
           </div>
+        </Link>
+      </div>
+
+      {/* Right grid item */}
+      {/* Statuses */}
+      <div>
+        <div className={`grid grid-cols-5 gap-0`}>
+          {lastNDates.map((date, index) => (
+            <div key={index} className={"text-end"}>
+              {status[index] ? (
+                <button onClick={() => undoCompletedEntry(habit, date)}>
+                  <CompletedStatus color={habit.color} />
+                </button>
+              ) : (
+                <button onClick={() => addCompletedEntry(habit, date)}>
+                  <IncompleteStatus color={habit.color} />
+                </button>
+              )}
+            </div>
+          ))}
         </div>
       </div>
-    </Reorder.Item>
+    </div>
   );
 }
 
