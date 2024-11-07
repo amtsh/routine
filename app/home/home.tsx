@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
 import { Reorder } from "framer-motion";
-import { HabitRowToDrag } from "@/components/HabitRowToDrag";
+import { HabitRowToDrag } from "@/app/home/HabitRowToDrag";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
