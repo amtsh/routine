@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { Grip, PlusIcon } from "lucide-react";
 import {
   cn,
   DAYS_TO_SHOW,
@@ -16,7 +16,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
-import { DragControls, Reorder, useDragControls } from "framer-motion";
+import {
+  DragControls,
+  Reorder,
+  useDragControls,
+  useMotionValue,
+} from "framer-motion";
+import { useRaisedShadow } from "@/lib/use-raised-shadow";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -88,6 +94,8 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
   // const [showStreaks, setShowStreaks] = useState(true);
   const streakCount = getStreaksCount(status);
   const dragControls = useDragControls();
+  const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
 
   return (
     <Reorder.Item
@@ -95,18 +103,28 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
       value={habit} // Set the value to the habit
       dragListener={false} // prevent drag on the whole row
       dragControls={dragControls}
+      style={{
+        boxShadow,
+        y,
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+      }}
     >
       <div className="grid grid-cols-2 place-items-stretch items-center">
         {/* Left grid item */}
         <div>
           <div className="flex">
             <div
-              className={`cursor-grabbing w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
-              onPointerDown={(e) => {
-                dragControls.start(e);
-              }}
+              className="cursor-grab flex items-center justify-center mr-3"
+              onPointerDown={(e) => dragControls.start(e)}
             >
-              <span className="select-none text-2xl">{habit.icon}</span>
+              <Grip className="w-6 h-6 text-zinc-400" />
+            </div>
+            <div
+              className={`w-12 h-12 rounded-full ${habit.color} bg-opacity-20 flex items-center justify-center mr-3`}
+            >
+              <span className="text-2xl">{habit.icon}</span>
             </div>
             <Link href={`/edit/${habit.id}`}>
               <div className="flex flex-col self-center">
