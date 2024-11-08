@@ -22,10 +22,7 @@ export function NewHabitButton() {
   return (
     <div>
       <Link href="/new">
-        <Button
-          variant="ghost"
-          className="text-md md:text-lg font-bold text-zinc-300"
-        >
+        <Button variant="ghost" className="text-md md:text-lg text-zinc-300">
           <PlusIcon />
           New Habit
         </Button>
@@ -45,7 +42,7 @@ export function RefreshButton() {
     <div>
       <Button
         variant="ghost"
-        className="text-md md:text-lg font-bold text-zinc-300"
+        className="text-md md:text-lg text-zinc-300"
         onClick={handleRefresh}
       >
         <RotateCwIcon />
@@ -59,10 +56,7 @@ export function NewHabitSuggestionsButton() {
   return (
     <div>
       <Link href="/suggestions">
-        <Button
-          variant="ghost"
-          className="text-md md:text-lg font-bold text-zinc-300"
-        >
+        <Button variant="ghost" className="text-md md:text-lg text-zinc-300">
           ✨ Habit Suggestions
         </Button>
       </Link>
@@ -74,10 +68,7 @@ export function ReorderIconButton() {
   return (
     <div>
       <Link href="/reorder" passHref>
-        <Button
-          variant={"ghost"}
-          className="text-md md:text-lg font-bold text-zinc-300"
-        >
+        <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
           <ArrowUpDown /> Reorder
         </Button>
       </Link>
@@ -93,10 +84,7 @@ export function FeedbackButton() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Button
-          variant={"ghost"}
-          className="text-md md:text-lg font-bold text-zinc-300"
-        >
+        <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
           <ReplyIcon />
           Feedback
         </Button>
@@ -108,10 +96,7 @@ export function FeedbackButton() {
 export function ShareButton() {
   return (
     <div>
-      <Button
-        variant={"ghost"}
-        className="text-md md:text-lg font-bold text-zinc-300"
-      >
+      <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
         <ShareIcon />
         Share App
       </Button>
