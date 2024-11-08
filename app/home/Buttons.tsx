@@ -106,31 +106,34 @@ export function ShareButton() {
 
 export function EmptyState() {
   return (
-    <div className="p-4 overflow-hidden rounded-md border-gray-800 flex justify-center items-center">
-      {/* Mobile */}
-      <div className="md:hidden">
-        <Image
-          src={"/meditate-portrait.jpg"}
-          width={1350}
-          height={1}
-          alt={"Boy meditating"}
-          className="object-cover transition-all hover:scale-105 rounded-md"
-          priority
-          quality={100}
-        />
+    <>
+      <div className="p-4 overflow-hidden rounded-md border-gray-800 flex justify-center items-center">
+        {/* Mobile */}
+        <div className="md:hidden">
+          <Image
+            src={"/meditate-portrait.jpg"}
+            width={1350}
+            height={1}
+            alt={"Boy meditating"}
+            className="object-cover transition-all hover:scale-105 rounded-md"
+            priority
+            quality={100}
+          />
+        </div>
+        {/* Desktop */}
+        <div className="hidden md:block">
+          <Image
+            src={"/meditate-landscape.jpg"}
+            width={1600}
+            height={1}
+            alt={"Boy meditating"}
+            className="object-scale-down transition-all hover:scale-105 rounded-md"
+            priority
+            quality={100}
+          />
+        </div>
       </div>
-      {/* Desktop */}
-      <div className="hidden md:block">
-        <Image
-          src={"/meditate-landscape.jpg"}
-          width={1600}
-          height={1}
-          alt={"Boy meditating"}
-          className="object-scale-down transition-all hover:scale-105 rounded-md"
-          priority
-          quality={100}
-        />
-      </div>
-    </div>
+      <NewHabitButton />
+    </>
   );
 }
