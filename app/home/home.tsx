@@ -68,13 +68,15 @@ export default function Home() {
           />
         ))}
 
-        <div>
-          <Link href="/reorder">
-            <Button variant={"ghost"} className="text-zinc-400">
-              <ArrowUpDown /> Reorder
-            </Button>
-          </Link>
-        </div>
+        {habits.length > 1 && (
+          <div>
+            <Link href="/reorder">
+              <Button variant={"ghost"} className="text-zinc-400">
+                <ArrowUpDown /> Reorder
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
 
       <PWAPrompt
