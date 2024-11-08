@@ -1,8 +1,6 @@
 "use client";
 
-import { ArrowUpDown, PlusIcon } from "lucide-react";
 import {
-  cn,
   DAYS_TO_SHOW,
   getDayFromDate,
   getLastNStatus,
@@ -13,9 +11,14 @@ import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import PWAPrompt from "react-ios-pwa-prompt";
+import {
+  EmptyState,
+  CompletedStatus,
+  IncompleteStatus,
+  NewHabitButton,
+  NewHabitSuggestionsButton,
+} from "./Buttons";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -62,12 +65,6 @@ export default function Home() {
             )}
           />
         ))}
-
-        {habits.length > 0 && <ReorderIconButton />}
-      </div>
-
-      <div className="my-8">
-        <NewHabitRow />
       </div>
 
       <PWAPrompt
@@ -142,86 +139,6 @@ function NewHabitRow() {
       <NewHabitButton />
 
       <NewHabitSuggestionsButton />
-    </div>
-  );
-}
-
-export function NewHabitButton() {
-  return (
-    <Link href="/new" className="block">
-      <Button variant="ghost" className="hover:bg-transparent px-0">
-        <span className="text-lg text-zinc-400 flex items-center justify-center w-10 h-10 rounded-full bg-gray-900">
-          <PlusIcon className="w-4 h-4" />
-        </span>
-
-        <div className="text-sm font-medium text-zinc-400">New Habit</div>
-      </Button>
-    </Link>
-  );
-}
-
-export function NewHabitSuggestionsButton() {
-  return (
-    <Link href="/suggestions" className="block">
-      <Button variant="ghost" className="hover:bg-transparent px-0">
-        <span className="text-lg flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-amber-400">
-          ✨
-        </span>
-        <div className="text-sm font-medium text-zinc-400">
-          Habit Suggestions
-        </div>
-      </Button>
-    </Link>
-  );
-}
-
-function CompletedStatus({ color }: { color: string }) {
-  return <div className={cn("w-5 h-5 rounded", color)} />;
-}
-
-function IncompleteStatus({ color }: { color: string }) {
-  return <div className={cn("w-5 h-5 rounded opacity-20", color)} />;
-}
-
-function ReorderIconButton() {
-  return (
-    <div>
-      <Link href="/reorder" passHref>
-        <Button variant={"ghost"} className="text-zinc-500">
-          <ArrowUpDown /> Reorder
-        </Button>
-      </Link>
-    </div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div className="p-4 overflow-hidden rounded-md border-gray-800 flex justify-center items-center">
-      {/* Mobile */}
-      <div className="md:hidden">
-        <Image
-          src={"/meditate-portrait.jpg"}
-          width={1350}
-          height={1}
-          alt={"Boy meditating"}
-          className="object-cover transition-all hover:scale-105 rounded-md"
-          priority
-          quality={100}
-        />
-      </div>
-      {/* Desktop */}
-      <div className="hidden md:block">
-        <Image
-          src={"/meditate-landscape.jpg"}
-          width={1600}
-          height={1}
-          alt={"Boy meditating"}
-          className="object-scale-down transition-all hover:scale-105 rounded-md"
-          priority
-          quality={100}
-        />
-      </div>
     </div>
   );
 }

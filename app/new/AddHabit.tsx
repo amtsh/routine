@@ -14,9 +14,9 @@ import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { XIcon } from "lucide-react";
 import Link from "next/link";
-import { NewHabitSuggestionsButton } from "../home/home";
 import { HabitIntervalChoiceRadio } from "./HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
+import { NewHabitSuggestionsButton } from "../home/Buttons";
 
 const colors = [
   "bg-zinc-400",
@@ -85,7 +85,7 @@ export default function AddHabit() {
           </div>
         </div>
 
-        <div className="my-8 space-y-4">
+        <div className="my-8 space-y-1">
           <Input
             type="text"
             id="habit-name"

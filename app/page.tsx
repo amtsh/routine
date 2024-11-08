@@ -2,30 +2,11 @@
 
 import Link from "next/link";
 import Home from "./home/home";
-import {
-  PlusIcon,
-  EllipsisIcon,
-  RotateCcwIcon,
-  ReplyIcon,
-  ArrowDownUpIcon,
-} from "lucide-react";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+import { PlusIcon } from "lucide-react";
+
+import { MenuDrawer } from "./home/MenuDrawer";
 
 export default function Index() {
-  const handleRefresh = () => {
-    if (typeof window !== "undefined") {
-      // refresh the PWA
-      window.location.reload();
-    }
-  };
-
   return (
     <main>
       <div className="min-h-screen bg-black text-white p-4 font-sans">
@@ -34,41 +15,7 @@ export default function Index() {
             <PlusIcon className="w-6 h-6 text-zinc-400" />
           </Link>
 
-          <Menubar className="border-none">
-            <MenubarMenu>
-              <MenubarTrigger>
-                <EllipsisIcon className="text-zinc-400" />
-              </MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem className="p-2" onClick={handleRefresh}>
-                  Refresh
-                  <MenubarShortcut>
-                    <RotateCcwIcon className="w-4 h-4" />
-                  </MenubarShortcut>
-                </MenubarItem>
-                <Link href="/reorder">
-                  <MenubarItem className="p-2">
-                    Reorder
-                    <MenubarShortcut>
-                      <ArrowDownUpIcon className="w-4 h-4" />
-                    </MenubarShortcut>
-                  </MenubarItem>
-                </Link>
-                <Link
-                  href="mailto:amtsh@pm.me?subject=Regarding%20Routine%20app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MenubarItem className="p-2">
-                    Feedback
-                    <MenubarShortcut>
-                      <ReplyIcon className="w-4 h-4" />
-                    </MenubarShortcut>
-                  </MenubarItem>
-                </Link>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
+          <MenuDrawer />
         </div>
         <Home />
       </div>

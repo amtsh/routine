@@ -4,11 +4,11 @@ import { CheckIcon, PlusIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { NewHabitButton } from "../home/home";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { getSuggestionHabits } from "@/lib/utils";
+import { NewHabitButton } from "../home/Buttons";
 
 const suggestions = getSuggestionHabits();
 
@@ -42,8 +42,6 @@ export default function HabitSuggestions() {
           </div>
         </div>
       ))}
-
-      <NewHabitButton />
     </div>
   );
 }
