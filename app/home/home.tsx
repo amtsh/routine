@@ -19,6 +19,8 @@ import {
   NewHabitButton,
   NewHabitSuggestionsButton,
 } from "./Buttons";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -65,6 +67,14 @@ export default function Home() {
             )}
           />
         ))}
+
+        <div>
+          <Link href="/reorder">
+            <Button variant={"ghost"} className="text-zinc-400">
+              <ArrowUpDown /> Reorder
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <PWAPrompt
