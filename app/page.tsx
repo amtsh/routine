@@ -9,10 +9,10 @@ import { MenuDrawer } from "./home/MenuDrawer";
 export default function Index() {
   return (
     <main>
-      <div className="min-h-screen bg-black text-white p-4 font-sans">
-        <div className="flex justify-between items-center mb-6">
+      <div className="min-h-screen bg-black text-white px-4 py-6 font-sans">
+        <div className="flex justify-between items-center mb-6 align-middle">
           <Link href="/new">
-            <PlusIcon className="w-6 h-6 text-zinc-400" />
+            <PlusIcon className="text-zinc-400" />
           </Link>
 
           <MenuDrawer />

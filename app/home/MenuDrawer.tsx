@@ -14,14 +14,16 @@ import {
   ReorderIconButton,
   ShareButton,
 } from "./Buttons";
-import { Tally2Icon } from "lucide-react";
+import { EllipsisIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 export function MenuDrawer() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <Tally2Icon className="text-zinc-400 rotate-90" />
+        <div>
+          <EllipsisIcon />
+        </div>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm my-8">

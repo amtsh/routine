@@ -24,7 +24,7 @@ export function NewHabitButton() {
       <Link href="/new">
         <Button
           variant="ghost"
-          className="text-sm md:text-lg font-bold text-zinc-300"
+          className="text-md md:text-lg font-bold text-zinc-300"
         >
           <PlusIcon />
           New Habit
@@ -45,7 +45,7 @@ export function RefreshButton() {
     <div>
       <Button
         variant="ghost"
-        className="text-sm md:text-lg font-bold text-zinc-300"
+        className="text-md md:text-lg font-bold text-zinc-300"
         onClick={handleRefresh}
       >
         <RotateCwIcon />
@@ -61,7 +61,7 @@ export function NewHabitSuggestionsButton() {
       <Link href="/suggestions">
         <Button
           variant="ghost"
-          className="text-sm md:text-lg font-bold text-zinc-300"
+          className="text-md md:text-lg font-bold text-zinc-300"
         >
           ✨ Habit Suggestions
         </Button>
@@ -76,7 +76,7 @@ export function ReorderIconButton() {
       <Link href="/reorder" passHref>
         <Button
           variant={"ghost"}
-          className="text-sm md:text-lg font-bold text-zinc-300"
+          className="text-md md:text-lg font-bold text-zinc-300"
         >
           <ArrowUpDown /> Reorder
         </Button>
@@ -95,7 +95,7 @@ export function FeedbackButton() {
       >
         <Button
           variant={"ghost"}
-          className="text-sm md:text-lg font-bold text-zinc-300"
+          className="text-md md:text-lg font-bold text-zinc-300"
         >
           <ReplyIcon />
           Feedback
@@ -110,7 +110,7 @@ export function ShareButton() {
     <div>
       <Button
         variant={"ghost"}
-        className="text-sm md:text-lg font-bold text-zinc-300"
+        className="text-md md:text-lg font-bold text-zinc-300"
       >
         <ShareIcon />
         Share App
