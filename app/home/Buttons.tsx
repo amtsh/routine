@@ -22,7 +22,7 @@ export function NewHabitButton() {
   return (
     <div>
       <Link href="/new">
-        <Button variant="ghost" className="text-md md:text-lg text-zinc-300">
+        <Button variant="ghost" className="text-base font-sans font-semibold">
           <PlusIcon />
           New Habit
         </Button>
@@ -42,7 +42,7 @@ export function RefreshButton() {
     <div>
       <Button
         variant="ghost"
-        className="text-md md:text-lg text-zinc-300"
+        className="text-base font-sans font-semibold"
         onClick={handleRefresh}
       >
         <RotateCwIcon />
@@ -56,7 +56,7 @@ export function NewHabitSuggestionsButton() {
   return (
     <div>
       <Link href="/suggestions">
-        <Button variant="ghost" className="text-md md:text-lg text-zinc-300">
+        <Button variant="ghost" className="text-base font-sans font-semibold">
           ✨ Habit Suggestions
         </Button>
       </Link>
@@ -68,7 +68,7 @@ export function ReorderIconButton() {
   return (
     <div>
       <Link href="/reorder" passHref>
-        <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
+        <Button variant={"ghost"} className="text-base font-sans font-semibold">
           <ArrowUpDown /> Reorder
         </Button>
       </Link>
@@ -84,7 +84,7 @@ export function FeedbackButton() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
+        <Button variant={"ghost"} className="text-base font-sans font-semibold">
           <ReplyIcon />
           Feedback
         </Button>
@@ -96,7 +96,7 @@ export function FeedbackButton() {
 export function ShareButton() {
   return (
     <div>
-      <Button variant={"ghost"} className="text-md md:text-lg text-zinc-300">
+      <Button variant={"ghost"} className="text-base font-sans font-semibold">
         <ShareIcon />
         Share App
       </Button>
@@ -133,7 +133,6 @@ export function EmptyState() {
           />
         </div>
       </div>
-      <NewHabitButton />
     </>
   );
 }
