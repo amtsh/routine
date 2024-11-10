@@ -87,7 +87,7 @@ function SuggestHabitRow({ habit }: { habit: Habit }) {
             disabled
           >
             <span className="text-lg bg-green-700 flex items-center justify-center w-12 h-12 rounded-full">
-              <CheckIcon className="w-4 h-4 text-green-200" />
+              <CheckIcon className="w-4 h-4" />
             </span>
           </Button>
         ) : (
