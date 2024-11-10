@@ -1,9 +1,9 @@
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 
 import {
@@ -14,21 +14,27 @@ import {
   ReorderIconButton,
   ShareButton,
 } from "./Buttons";
-import { EllipsisIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-export function MenuDrawer() {
+export function MenuDrawer({
+  isOpen,
+  onOpenChange,
+}: {
+  isOpen: boolean;
+  onOpenChange: () => void;
+}) {
   return (
-    <Drawer>
-      <DrawerTrigger>
+    <Drawer open={isOpen} onOpenChange={onOpenChange}>
+      {/* <DrawerTrigger>
         <div>
           <EllipsisIcon />
         </div>
-      </DrawerTrigger>
+      </DrawerTrigger> */}
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm my-8">
           <DrawerHeader className="m-0 p-0">
             <DrawerTitle />
+            <DrawerDescription />
           </DrawerHeader>
 
           <div className="space-y-2">
