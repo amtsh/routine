@@ -19,8 +19,6 @@ import {
   NewHabitButton,
   NewHabitSuggestionsButton,
 } from "./Buttons";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
 
 export default function Home() {
   const [habits, setHabits] = useState<Habit[]>([]);
