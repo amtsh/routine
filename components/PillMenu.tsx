@@ -16,7 +16,7 @@ const PillMenu = ({ onMenuPress }: { onMenuPress: () => void }) => {
   };
 
   return (
-    <div className="fixed bottom-[2%] left-1/2 transform -translate-x-1/2  rounded-full bg-black border py-2">
+    <div className="fixed bottom-[3%] left-1/2 transform -translate-x-1/2 rounded-full shadow bg-black border py-3">
       <div className="flex">
         <Link href="/new" title="Add Habit">
           <PlusIcon className="w-12 p-1" />
@@ -25,10 +25,10 @@ const PillMenu = ({ onMenuPress }: { onMenuPress: () => void }) => {
           <RotateCw className="w-12 p-1" />
         </button>
         <Link href="/reorder" title="Reorder Habits">
-          <ArrowUpDownIcon className=" w-12 p-1" />
+          <ArrowUpDownIcon className="w-12 p-1" />
         </Link>
         <button onClick={onMenuPress} title="Open Menu">
-          <EllipsisIcon className=" w-12 p-1" />
+          <EllipsisIcon className="w-12 p-1" />
         </button>
       </div>
     </div>
