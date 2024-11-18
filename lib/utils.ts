@@ -40,7 +40,7 @@ export function getEpochTimeFromDate(date: string) {
   return new Date(date).getTime() / 1000;
 }
 
-export function getDateFromEpochTime(epochTime: number) {
+export function getDateFromEpochTime(epochTime: number): string {
   return new Date(epochTime * 1000).toISOString().split("T")[0];
 }
 

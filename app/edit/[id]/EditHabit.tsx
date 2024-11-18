@@ -16,6 +16,7 @@ import { Habit } from "@/lib/types";
 import Link from "next/link";
 import { HabitIntervalChoiceRadio } from "@/app/new/HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
+import { Calendar } from "@/components/ui/calendar";
 
 const colors = [
   "bg-zinc-400",
@@ -168,6 +169,19 @@ export default function EditHabit({ habitId }: { habitId: string }) {
             setHabitInterval(value);
           }}
         />
+
+        <div className="my-16 space-y-4">
+          <Label className="text-lg" htmlFor="completed-on">
+            Completed On
+          </Label>
+
+          <Calendar
+            id="completed-on"
+            mode="multiple"
+            selected={habit?.completedOn.map((date) => new Date(date * 1000))}
+            className="rounded-md p-0"
+          />
+        </div>
 
         <div className="my-8">
           {/* <Button variant={"outline"} type="submit" className="w-full py-6">
