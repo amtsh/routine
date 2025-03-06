@@ -17,6 +17,7 @@ import Link from "next/link";
 import { HabitIntervalChoiceRadio } from "@/app/new/HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
+import { BackButton } from "@/app/home/Buttons";
 
 const colors = [
   "bg-zinc-400",
@@ -100,7 +101,7 @@ export default function EditHabit({ habitId }: { habitId: string }) {
         <div className="flex justify-between items-center mb-6">
           <div>
             <Link href="/">
-              <XIcon className="w-6 h-6 text-zinc-400" />
+              <BackButton />
             </Link>
           </div>
           <div>

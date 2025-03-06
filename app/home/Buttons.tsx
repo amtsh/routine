@@ -6,6 +6,7 @@ import {
   ReplyIcon,
   RotateCwIcon,
   ShareIcon,
+  ChevronLeft,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,7 +23,7 @@ export function NewHabitButton() {
   return (
     <div>
       <Link href="/new">
-        <Button variant="ghost" className="text-base font-sans font-semibold">
+        <Button variant="ghost" className="text-base font-sans rounded-full">
           <PlusIcon />
           New Habit
         </Button>
@@ -42,7 +43,7 @@ export function RefreshButton() {
     <div>
       <Button
         variant="ghost"
-        className="text-base font-sans font-semibold"
+        className="text-base font-sans rounded-full"
         onClick={handleRefresh}
       >
         <RotateCwIcon />
@@ -56,7 +57,7 @@ export function NewHabitSuggestionsButton() {
   return (
     <div>
       <Link href="/suggestions">
-        <Button variant="ghost" className="text-base font-sans font-semibold">
+        <Button variant="ghost" className="text-base font-sans rounded-full">
           ✨ Habit Suggestions
         </Button>
       </Link>
@@ -68,7 +69,7 @@ export function ReorderIconButton() {
   return (
     <div>
       <Link href="/reorder" passHref>
-        <Button variant={"ghost"} className="text-base font-sans font-semibold">
+        <Button variant={"ghost"} className="text-base font-sans rounded-full">
           <ArrowUpDown /> Reorder
         </Button>
       </Link>
@@ -84,7 +85,7 @@ export function FeedbackButton() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Button variant={"ghost"} className="text-base font-sans font-semibold">
+        <Button variant={"ghost"} className="text-base font-sans rounded-full">
           <ReplyIcon />
           Feedback
         </Button>
@@ -96,11 +97,19 @@ export function FeedbackButton() {
 export function ShareButton() {
   return (
     <div>
-      <Button variant={"ghost"} className="text-base font-sans font-semibold">
+      <Button variant={"ghost"} className="text-base font-sans rounded-full">
         <ShareIcon />
         Share App
       </Button>
     </div>
+  );
+}
+
+export function BackButton() {
+  return (
+    <Button variant="outline" size="icon" className="rounded-full">
+      <ChevronLeft />
+    </Button>
   );
 }
 

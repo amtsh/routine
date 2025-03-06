@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, PlusIcon, XIcon } from "lucide-react";
+import { CheckIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { getSuggestionHabits } from "@/lib/utils";
-import { NewHabitButton } from "../home/Buttons";
+import { BackButton } from "../home/Buttons";
 
 const suggestions = getSuggestionHabits();
 
@@ -18,7 +18,7 @@ export default function HabitSuggestions() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <Link href="/">
-            <XIcon className="w-6 h-6 text-zinc-400" />
+            <BackButton />
           </Link>
         </div>
       </div>

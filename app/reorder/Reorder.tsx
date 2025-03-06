@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Reorder } from "framer-motion";
 import { HabitRowToDrag } from "./HabitRowToDrag";
 import { Button } from "@/components/ui/button";
+import { BackButton } from "../home/Buttons";
 
 export default function ReorderComponent() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -29,7 +30,7 @@ export default function ReorderComponent() {
     <div className="min-h-screen bg-black text-white p-4 font-sans">
       <div className="flex justify-between items-center mb-6">
         <Link href="/">
-          <XIcon className="w-6 h-6 text-zinc-400" />
+          <BackButton />
         </Link>
 
         <Button className="text-md px-0" variant="link" onClick={handleSubmit}>

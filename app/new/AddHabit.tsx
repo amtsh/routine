@@ -16,7 +16,7 @@ import { XIcon } from "lucide-react";
 import Link from "next/link";
 import { HabitIntervalChoiceRadio } from "./HabitIntervalChoiceRadio";
 import { Label } from "@/components/ui/label";
-import { NewHabitSuggestionsButton } from "../home/Buttons";
+import { BackButton, NewHabitSuggestionsButton } from "../home/Buttons";
 
 const colors = [
   "bg-zinc-400",
@@ -75,7 +75,7 @@ export default function AddHabit() {
         <div className="flex justify-between items-center mb-6">
           <div>
             <Link href="/">
-              <XIcon className="w-6 h-6 text-zinc-400" />
+              <BackButton />
             </Link>
           </div>
           <div>
