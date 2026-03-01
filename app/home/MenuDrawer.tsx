@@ -31,7 +31,7 @@ export function MenuDrawer({
         </div>
       </DrawerTrigger> */}
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm my-8">
+        <div className="mx-auto w-full max-w-sm my-8 font-sans">
           <DrawerHeader className="m-0 p-0">
             <DrawerTitle />
             <DrawerDescription />
