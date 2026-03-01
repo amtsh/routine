@@ -81,13 +81,13 @@ export function FeedbackButton() {
   return (
     <div>
       <Link
-        href="mailto:amtsh@pm.me?subject=Regarding%20Routine%20app"
+        href="https://x.com/amiitshiinde"
         target="_blank"
         rel="noopener noreferrer"
       >
         <Button variant={"ghost"} className="text-base font-sans rounded-full">
           <ReplyIcon />
-          Feedback
+          Post feedback on X
         </Button>
       </Link>
     </div>

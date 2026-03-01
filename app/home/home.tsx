@@ -10,23 +10,12 @@ import {
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
-import { useEffect, useState } from "react";
 import PWAPrompt from "react-ios-pwa-prompt";
-import {
-  EmptyState,
-  CompletedStatus,
-  IncompleteStatus,
-  NewHabitButton,
-  NewHabitSuggestionsButton,
-} from "./Buttons";
+import { EmptyState, CompletedStatus, IncompleteStatus } from "./Buttons";
+import { HabitSuggestionsList } from "@/components/HabitSuggestionsList";
 
 export default function Home() {
-  const [habits, setHabits] = useState<Habit[]>([]);
-  const { getAllHabits } = useSavedHabits();
-
-  useEffect(() => {
-    setHabits(getAllHabits());
-  }, [getAllHabits]);
+  const { savedHabits } = useSavedHabits();
 
   return (
     <>
@@ -53,15 +42,25 @@ export default function Home() {
         </div>
       </div>
 
-      {habits.length === 0 && <EmptyState />}
+      {savedHabits.length === 0 && (
+        <div className="space-y-10">
+          <EmptyState />
+          <div className="pt-24 md:pt-50">
+            <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200 mb-8">
+              Suggested habits
+            </h3>
+            <HabitSuggestionsList />
+          </div>
+        </div>
+      )}
 
       <div className="space-y-8">
-        {habits.map((habit) => (
+        {savedHabits.map((habit) => (
           <HabitRow
             key={habit.id}
             habit={habit}
             status={getLastNStatus(
-              habit.completedOn.sort().slice(-DAYS_TO_SHOW)
+              habit.completedOn.sort().slice(-DAYS_TO_SHOW),
             )}
           />
         ))}
@@ -129,16 +128,6 @@ function HabitRow({ habit, status }: { habit: Habit; status: boolean[] }) {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function NewHabitRow() {
-  return (
-    <div className="flex justify-between items-center">
-      <NewHabitButton />
-
-      <NewHabitSuggestionsButton />
     </div>
   );
 }
