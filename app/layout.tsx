@@ -20,7 +20,10 @@ export const metadata: Metadata = {
   title: "Routine - Habit Tracker",
   description: "Improve quality of life by building good habits",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
   },
   openGraph: {
     title: "Routine - Habit Tracker",
