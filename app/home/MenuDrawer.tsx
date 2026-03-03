@@ -45,7 +45,7 @@ export function MenuDrawer({
             <ReorderIconButton />
             <Separator />
             <FeedbackButton />
-            <ShareButton />
+            <ShareButton onAfterShare={onOpenChange} />
           </div>
 
           {/* <DrawerFooter>

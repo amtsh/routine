@@ -94,15 +94,49 @@ export function FeedbackButton() {
   );
 }
 
-export function ShareButton() {
+export function ShareButton({
+  onAfterShare,
+}: {
+  onAfterShare?: () => void;
+} = {}) {
+  const handleShare = async () => {
+    if (typeof window === "undefined") return;
+    const shareData = {
+      title: "Routine",
+      text: "Check out Routine — habit tracking app",
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        onAfterShare?.();
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          fallbackCopy(shareData.url);
+        }
+      }
+    } else {
+      fallbackCopy(shareData.url);
+      onAfterShare?.();
+    }
+  };
+
   return (
     <div>
-      <Button variant={"ghost"} className="text-base font-sans rounded-full">
+      <Button
+        variant={"ghost"}
+        className="text-base font-sans rounded-full"
+        onClick={handleShare}
+      >
         <ShareIcon />
         Share App
       </Button>
     </div>
   );
+}
+
+function fallbackCopy(url: string) {
+  navigator.clipboard?.writeText(url);
 }
 
 export function BackButton() {
