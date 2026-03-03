@@ -171,7 +171,7 @@ export function PWAInstallPrompt({
       shouldScaleBackground
     >
       <DrawerPrimitive.Portal>
-        <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px]" />
+        <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-[3px]" />
 
         <DrawerPrimitive.Content
           className="fixed inset-x-0 bottom-0 z-50 outline-none"
