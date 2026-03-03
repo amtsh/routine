@@ -14,7 +14,13 @@ import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { EmptyState, CompletedStatus, IncompleteStatus } from "./Buttons";
 import { HabitSuggestionsList } from "@/components/HabitSuggestionsList";
 
-export default function Home() {
+export default function Home({
+  pwaPromptOpen,
+  onPwaPromptClose,
+}: {
+  pwaPromptOpen?: boolean;
+  onPwaPromptClose?: () => void;
+} = {}) {
   const { savedHabits } = useSavedHabits();
 
   return (
@@ -80,7 +86,11 @@ export default function Home() {
       <PWAInstallPrompt
         copyShareStep="Press the 'Share' icon"
         appIconPath="/favicon.svg"
-        forceShow={process.env.NODE_ENV === "development"}
+        forceShow={
+          process.env.NODE_ENV === "development" && pwaPromptOpen === undefined
+        }
+        open={pwaPromptOpen}
+        onOpenChange={(v) => !v && onPwaPromptClose?.()}
       />
     </>
   );

@@ -5,9 +5,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
 
 import {
   FeedbackButton,
+  InstallAppButton,
   NewHabitButton,
   NewHabitSuggestionsButton,
   RefreshButton,
@@ -19,10 +21,14 @@ import { Separator } from "@/components/ui/separator";
 export function MenuDrawer({
   isOpen,
   onOpenChange,
+  onInstallApp,
 }: {
   isOpen: boolean;
   onOpenChange: () => void;
+  onInstallApp?: () => void;
 }) {
+  const { savedHabits } = useSavedHabits();
+
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
       {/* <DrawerTrigger>
@@ -42,9 +48,12 @@ export function MenuDrawer({
             <NewHabitSuggestionsButton />
             <Separator />
             <RefreshButton />
-            <ReorderIconButton />
+            <ReorderIconButton disabled={savedHabits.length === 0} />
             <Separator />
             <FeedbackButton />
+            {onInstallApp && (
+              <InstallAppButton onClick={onInstallApp} />
+            )}
             <ShareButton onAfterShare={onOpenChange} />
           </div>
 

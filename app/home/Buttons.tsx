@@ -7,6 +7,7 @@ import {
   RotateCwIcon,
   ShareIcon,
   ChevronLeft,
+  Smartphone,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -65,14 +66,24 @@ export function NewHabitSuggestionsButton() {
   );
 }
 
-export function ReorderIconButton() {
+export function ReorderIconButton({ disabled }: { disabled?: boolean }) {
   return (
     <div>
-      <Link href="/reorder" passHref>
-        <Button variant={"ghost"} className="text-base font-sans rounded-full">
+      {disabled ? (
+        <Button
+          variant="ghost"
+          className="text-base font-sans rounded-full"
+          disabled
+        >
           <ArrowUpDown /> Reorder
         </Button>
-      </Link>
+      ) : (
+        <Link href="/reorder" passHref>
+          <Button variant="ghost" className="text-base font-sans rounded-full">
+            <ArrowUpDown /> Reorder
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
@@ -90,6 +101,21 @@ export function FeedbackButton() {
           Post feedback on X
         </Button>
       </Link>
+    </div>
+  );
+}
+
+export function InstallAppButton({ onClick }: { onClick?: () => void }) {
+  return (
+    <div>
+      <Button
+        variant="ghost"
+        className="text-base font-sans rounded-full"
+        onClick={onClick}
+      >
+        <Smartphone />
+        Install App
+      </Button>
     </div>
   );
 }

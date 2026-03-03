@@ -106,6 +106,8 @@ interface PWAInstallPromptProps {
   timesToShow?: number;
   delay?: number;
   forceShow?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onClose?: () => void;
 }
 
@@ -120,12 +122,17 @@ export function PWAInstallPrompt({
   timesToShow = 2,
   delay = 1000,
   forceShow = false,
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
   onClose,
 }: PWAInstallPromptProps) {
   const { isValidOS, isStandalone } = useIsIOS();
   const { visits, increment } = useVisitCount(isValidOS);
   const [shouldShow, setShouldShow] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
 
   const hasIncremented = useRef(false);
   useEffect(() => {
@@ -137,7 +144,9 @@ export function PWAInstallPrompt({
   }, [isValidOS, visits]);
 
   useEffect(() => {
-    if (forceShow && isValidOS) {
+    if (isControlled) {
+      setShouldShow(!!controlledOpen);
+    } else if (forceShow && isValidOS) {
       setShouldShow(true);
     } else if (isValidOS && visits !== undefined && !isStandalone) {
       const nextVisit = visits + 1;
@@ -145,16 +154,30 @@ export function PWAInstallPrompt({
         nextVisit >= promptOnVisit && nextVisit < promptOnVisit + timesToShow;
       setShouldShow(show);
     }
-  }, [forceShow, isValidOS, visits, isStandalone, promptOnVisit, timesToShow]);
+  }, [
+    isControlled,
+    controlledOpen,
+    forceShow,
+    isValidOS,
+    visits,
+    isStandalone,
+    promptOnVisit,
+    timesToShow,
+  ]);
 
   useEffect(() => {
     if (!shouldShow) return;
-    const t = setTimeout(() => setOpen(true), delay);
+    if (isControlled) return;
+    const t = setTimeout(() => setInternalOpen(true), delay);
     return () => clearTimeout(t);
-  }, [shouldShow, delay]);
+  }, [shouldShow, delay, isControlled]);
 
   const handleClose = () => {
-    setOpen(false);
+    if (isControlled) {
+      controlledOnOpenChange?.(false);
+    } else {
+      setInternalOpen(false);
+    }
     onClose?.();
   };
 

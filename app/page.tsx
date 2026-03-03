@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [pwaPromptOpen, setPwaPromptOpen] = useState(false);
 
   return (
     <main>
@@ -20,7 +21,10 @@ export default function Index() {
             <PlusIcon className="text-zinc-400" />
           </Link> */}
         </div>
-        <Home />
+        <Home
+          pwaPromptOpen={pwaPromptOpen}
+          onPwaPromptClose={() => setPwaPromptOpen(false)}
+        />
       </div>
 
       <PillMenu onMenuPress={() => setMenuOpen(true)} />
@@ -28,6 +32,10 @@ export default function Index() {
       <MenuDrawer
         isOpen={menuOpen}
         onOpenChange={() => setMenuOpen(!menuOpen)}
+        onInstallApp={() => {
+          setMenuOpen(false);
+          setPwaPromptOpen(true);
+        }}
       />
 
       <div className="my-24" />
