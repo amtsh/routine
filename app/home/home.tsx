@@ -19,38 +19,49 @@ export default function Home() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-0 mb-10 items-center">
-        <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200">
-          Routine
-        </h3>
-        {/* Days */}
-        <div className="">
-          <div className={`grid grid-cols-5 gap-0`}>
-            {lastNDates.map((day, index) => (
-              <div
-                key={index}
-                className={`text-sm text-end rounded ${
-                  index === lastNDates.length - 1
-                    ? "text-zinc-100 font-semibold"
-                    : "text-zinc-400"
-                }`}
-              >
-                {getDayFromDate(day)}
-              </div>
-            ))}
+      <div
+        className={
+          savedHabits.length === 0
+            ? "min-h-[100dvh] flex flex-col mb-0"
+            : "mb-10"
+        }
+      >
+        <div className="grid grid-cols-2 gap-0 items-center shrink-0 mb-10">
+          <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200">
+            Routine
+          </h3>
+          {/* Days */}
+          <div className="">
+            <div className={`grid grid-cols-5 gap-0`}>
+              {lastNDates.map((day, index) => (
+                <div
+                  key={index}
+                  className={`text-sm text-end rounded ${
+                    index === lastNDates.length - 1
+                      ? "text-zinc-100 font-semibold"
+                      : "text-zinc-400"
+                  }`}
+                >
+                  {getDayFromDate(day)}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        {savedHabits.length === 0 && (
+          <div className="shrink-0 self-start">
+            <EmptyState />
+          </div>
+        )}
       </div>
 
       {savedHabits.length === 0 && (
-        <div className="space-y-10">
-          <EmptyState />
-          <div className="pt-24 md:pt-50">
-            <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200 mb-8">
-              Suggested habits
-            </h3>
-            <HabitSuggestionsList />
-          </div>
+        <div className="pt-24 md:pt-50">
+          <h3 className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-200 mb-8">
+            Suggested habits
+          </h3>
+          <HabitSuggestionsList />
         </div>
       )}
 
