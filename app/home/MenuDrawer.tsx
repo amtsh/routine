@@ -30,7 +30,7 @@ export function MenuDrawer({
           <EllipsisIcon />
         </div>
       </DrawerTrigger> */}
-      <DrawerContent>
+      <DrawerContent className="rounded-t-[20px] border border-zinc-600/650">
         <div className="mx-auto w-full max-w-sm my-8 font-sans">
           <DrawerHeader className="m-0 p-0">
             <DrawerTitle />
