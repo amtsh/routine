@@ -41,7 +41,7 @@ function useVisitCount(isValidOS: boolean) {
     try {
       localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ isValidOS, visits: next })
+        JSON.stringify({ isValidOS, visits: next }),
       );
     } catch {
       /* ignore */
@@ -105,6 +105,7 @@ interface PWAInstallPromptProps {
   promptOnVisit?: number;
   timesToShow?: number;
   delay?: number;
+  forceShow?: boolean;
   onClose?: () => void;
 }
 
@@ -112,12 +113,13 @@ export function PWAInstallPrompt({
   appIconPath = "/favicon.ico",
   copyTitle = "Add to Home Screen",
   copySubtitle,
-  copyDescription = "Add Routine to your home screen for a full-screen experience, offline access, and no browser chrome.",
+  copyDescription = "This website has app functionality. Add it to your home screen to use it in fullscreen and while offline.",
   copyShareStep = "Tap the Share icon in Safari's toolbar",
   copyAddToHomeScreenStep = "Tap 'Add to Home Screen'",
   promptOnVisit = 2,
   timesToShow = 2,
   delay = 1000,
+  forceShow = false,
   onClose,
 }: PWAInstallPromptProps) {
   const { isValidOS, isStandalone } = useIsIOS();
@@ -135,14 +137,15 @@ export function PWAInstallPrompt({
   }, [isValidOS, visits]);
 
   useEffect(() => {
-    if (isValidOS && visits !== undefined && !isStandalone) {
+    if (forceShow && isValidOS) {
+      setShouldShow(true);
+    } else if (isValidOS && visits !== undefined && !isStandalone) {
       const nextVisit = visits + 1;
       const show =
-        nextVisit >= promptOnVisit &&
-        nextVisit < promptOnVisit + timesToShow;
+        nextVisit >= promptOnVisit && nextVisit < promptOnVisit + timesToShow;
       setShouldShow(show);
     }
-  }, [isValidOS, visits, isStandalone, promptOnVisit, timesToShow]);
+  }, [forceShow, isValidOS, visits, isStandalone, promptOnVisit, timesToShow]);
 
   useEffect(() => {
     if (!shouldShow) return;
@@ -172,11 +175,13 @@ export function PWAInstallPrompt({
 
         <DrawerPrimitive.Content
           className="fixed inset-x-0 bottom-0 z-50 outline-none"
-          style={{ fontFamily: "var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif)" }}
+          style={{
+            fontFamily:
+              "var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif)",
+          }}
         >
           {/* Sheet surface */}
           <div className="rounded-t-[20px] bg-[#1c1c1e] overflow-hidden">
-
             {/* Handle */}
             <div className="flex justify-center pt-2.5 pb-1">
               <div className="h-[5px] w-9 rounded-full bg-[#3a3a3c]" />
@@ -186,7 +191,9 @@ export function PWAInstallPrompt({
             <div className="flex items-center gap-3.5 px-5 pt-3 pb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={appIconPath.startsWith("/") ? appIconPath : `/${appIconPath}`}
+                src={
+                  appIconPath.startsWith("/") ? appIconPath : `/${appIconPath}`
+                }
                 alt=""
                 className="h-[60px] w-[60px] rounded-[14px] bg-[#2c2c2e] object-contain p-2 shrink-0"
               />
@@ -253,7 +260,6 @@ export function PWAInstallPrompt({
                 Done
               </button>
             </div>
-
           </div>
         </DrawerPrimitive.Content>
       </DrawerPrimitive.Portal>

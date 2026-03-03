@@ -68,7 +68,8 @@ export default function Home() {
 
       <PWAInstallPrompt
         copyShareStep="Press the 'Share' icon"
-        appIconPath="/favicon.ico"
+        appIconPath="/favicon.svg"
+        forceShow={process.env.NODE_ENV === "development"}
       />
     </>
   );
