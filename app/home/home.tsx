@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { Habit } from "@/lib/types";
 import { useSavedHabits } from "@/lib/context/SavedHabitsContext";
-import PWAPrompt from "react-ios-pwa-prompt";
+import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { EmptyState, CompletedStatus, IncompleteStatus } from "./Buttons";
 import { HabitSuggestionsList } from "@/components/HabitSuggestionsList";
 
@@ -66,9 +66,9 @@ export default function Home() {
         ))}
       </div>
 
-      <PWAPrompt
-        copyShareStep={"Press the 'Share' icon"}
-        appIconPath="favicon.ico"
+      <PWAInstallPrompt
+        copyShareStep="Press the 'Share' icon"
+        appIconPath="/favicon.ico"
       />
     </>
   );
